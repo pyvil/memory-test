@@ -22,52 +22,8 @@
      * @constructor
      */
     var Test = function (param) {
-        /**
-         *
-         * @type {Array}
-         */
-        this.images = [];
-        var self = this;
-        // makes an object of each image, added `path` and `id`
-        param.images.forEach(function (item, index) {
-            self.images.push({'id' : index, 'item' : item});
-        });
-        /**
-         *
-         * @type {number}
-         */
-        this.level = this.toInt(param.level, 1);
-        /**
-         *
-         * @type {number}
-         */
-        this.imagesToRemember = this.toInt(param.imagesToRemember, 2);
-        /**
-         *
-         * @type {number}
-         */
-        this.levelsAmount = this.toInt(param.levelsAmount, 10);
-        /**
-         *
-         * @type {Object}
-         */
-        this.levelLinksContainer = this.toObj(param.levelLinksContainer, '.pyvil_level_list');
-        /**
-         *
-         * @type {Object}
-         */
-        this.imagesOutContainer = this.toObj(param.imagesOutContainer, '.pyvil_images_list');
-        /**
-         *
-         * @type {Object}
-         */
-        this.rememberContainer = this.toObj(param.rememberContainer, '.pyvil_remember_list');
-
-        /**
-         * Array of images user have to remember
-         * @type {Array}
-         */
-        this.rememberArray = [];
+        this.start(param);
+        this.parameters = param;
 
         /** */
         this.levelLinksGenerate();
@@ -98,7 +54,7 @@
             } else if (typeof _var == 'Object') {
                 return $(_var);
             }
-            return $(_default)
+            return $(_default);
             //throw new Error("You pass a wrong parameter, please check parameters you pass!");
         },
         /**
@@ -128,20 +84,20 @@
          * @param {number|string} level
          */
         setLevel : function (level) {
+            this.start(this.parameters);
             this.level = this.toInt(level, 1);
             this.imagesToRemember = this.level * 2;
             var imgs = this.getImagesToRemember();
-            var self = this;
             this.rememberArray = [];
             $(this.rememberContainer).html("");
+            var self = this;
             imgs.forEach(function (item) {
-                $(self.rememberContainer).append(
+                $(self.rememberContainer).append (
                     "<img src = '" + item.item + "' data-id='" + item.id + "'>"
                 );
                 // push `id`s of elements user have to remember
                 self.rememberArray.push(item.id);
             });
-            console.log(self.rememberArray);
             $('.start-test').bind('click', function () {
                 $(self.rememberContainer).parent().slideUp('fast', function () {
                     self.getAllImages();
@@ -181,9 +137,9 @@
          *
          */
         getAllImages : function () {
-            var self = this;
             $(this.imagesOutContainer).html("");
             this.shuffle();
+            var self = this;
             this.images.forEach(function (item) {
                 $(self.imagesOutContainer).append(
                     "<img src = '" + item.item + "' data-id='" + item.id + "'>"
@@ -191,7 +147,8 @@
             });
             $('.img-left').text(this.rememberArray.length);
             var count = this.rememberArray.length;
-
+            console.log(count);
+            $(self.imagesOutContainer).undelegate('img', 'click');
             $(self.imagesOutContainer).delegate('img', 'click', function() {
                 if (self.rememberArray.indexOf(self.toInt($(this).attr('data-id'), 0)) != -1) {
                     if ($(this).hasClass('check')) return false;
@@ -201,9 +158,9 @@
                         volume : 0.5
                     });
                     snd.play();
-                    console.log(count);
 
                     $('.img-left').text((--count));
+                    console.log(count);
                     if (count == 0) {
                         $('.modal').modal('show');
                         $(self.imagesOutContainer).parent().slideUp('fast', function () {
@@ -216,6 +173,55 @@
                 }
 
             });
+        },
+
+        start : function (param) {
+            /**
+             *
+             * @type {Array}
+             */
+            this.images = [];
+            var self = this;
+            // makes an object of each image, added `path` and `id`
+            param.images.forEach(function (item, index) {
+                self.images.push({'id' : index, 'item' : item});
+            });
+            /**
+             *
+             * @type {number}
+             */
+            this.level = this.toInt(param.level, 1);
+            /**
+             *
+             * @type {number}
+             */
+            this.imagesToRemember = this.toInt(param.imagesToRemember, 2);
+            /**
+             *
+             * @type {number}
+             */
+            this.levelsAmount = this.toInt(param.levelsAmount, 10);
+            /**
+             *
+             * @type {Object}
+             */
+            this.levelLinksContainer = this.toObj(param.levelLinksContainer, '.pyvil_level_list');
+            /**
+             *
+             * @type {Object}
+             */
+            this.imagesOutContainer = this.toObj(param.imagesOutContainer, '.pyvil_images_list');
+            /**
+             *
+             * @type {Object}
+             */
+            this.rememberContainer = this.toObj(param.rememberContainer, '.pyvil_remember_list');
+
+            /**
+             * Array of images user have to remember
+             * @type {Array}
+             */
+            this.rememberArray = [];
         }
     };
     /** makes class global */
