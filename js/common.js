@@ -154,8 +154,8 @@
                     if ($(this).hasClass('check')) return false;
                     $(this).toggleClass('check');
                     var snd = new Howl({
-                        urls : ['audio/check.mp3'],
-                        volume : 0.5
+                        urls : ['audio/check.wav'],
+                        volume : 0.2
                     });
                     snd.play();
 
@@ -175,6 +175,10 @@
             });
         },
 
+        /**
+         *
+         * @param param
+         */
         start : function (param) {
             /**
              *
