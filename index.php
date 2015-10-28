@@ -18,7 +18,7 @@
     <script>
         <?
             $images = scandir("img/test");
-            $arr = [];
+            $arr = array();
             foreach($images as $img) {
                 if ($img[0] != '.')
                     $arr[] = "'img/test/{$img}'";
