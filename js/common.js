@@ -1,12 +1,16 @@
 /**
- *
+ * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
+ * @package Memory_test
  */
 (function ($, window, document) {
     "use strict";
 
+    /**
+     * Class vars
+     * @type {string}
+     */
     var
         testLinkActive = "active",
-
         testLinInactive = "disabled";
 
     /**
@@ -111,9 +115,10 @@
         levelLinksGenerate : function () {
             var item = null;
             $(this.levelLinksContainer).html('');
+            console.log(this.levelsAmount);
             for (var i = 1; i <= this.levelsAmount; i++)
                 $(this.levelLinksContainer).append(
-                    "<a href='javascript:void(0)' data-level='"+i+"' class='list-group-item " + (i <= this.level ? testLinkActive : testLinInactive) + "'>Level "+i+"</a>"
+                    "<a href='javascript:void(0)' data-level='"+i+"'>"+i+"</a>"
                 );
             var self = this;
             $(this.levelLinksContainer).delegate('a', 'click', function (e) {
@@ -145,7 +150,6 @@
                     "<img src = '" + item.item + "' data-id='" + item.id + "'>"
                 );
             });
-            $('.img-left').text(this.rememberArray.length);
             var count = this.rememberArray.length;
             console.log(count);
             $(self.imagesOutContainer).undelegate('img', 'click');
@@ -153,13 +157,9 @@
                 if (self.rememberArray.indexOf(self.toInt($(this).attr('data-id'), 0)) != -1) {
                     if ($(this).hasClass('check')) return false;
                     $(this).toggleClass('check');
-                    var snd = new Howl({
-                        urls : ['audio/check.wav'],
-                        volume : 0.2
-                    });
-                    snd.play();
-
-                    $('.img-left').text((--count));
+                    $(this).animate({borderWidth : 7}, 'fast');
+                    self.successSound();
+                    --count;
                     console.log(count);
                     if (count == 0) {
                         $('.modal').modal('show');
@@ -170,9 +170,26 @@
                     }
                 } else {
                     $(this).toggleClass('uncheck');
+                    $(this).animate({borderWidth : 7}, 'fast');
+                    self.failSound();
                 }
-
             });
+        },
+
+        successSound : function () {
+            var snd = new Howl({
+                urls : ['audio/check.wav'],
+                volume : 0.2
+            });
+            snd.play();
+        },
+
+        failSound : function () {
+            var snd = new Howl({
+                urls : ['audio/fail.wav'],
+                volume : 0.2
+            });
+            snd.play();
         },
 
         /**
