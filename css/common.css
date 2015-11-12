@@ -1,26 +1,98 @@
+@font-face {
+    font-family: 'Cubano-Regular';
+    src : url(font/Cubano-Regular.otf);
+}
+
+@font-face {
+    font-family: 'Existence-Light';
+    src : url(font/Existence-Light.otf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Existence-Light';
+}
+
+a {
+    text-decoration: none;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.container{
+    max-width: 1200px;
+    padding: 10px;
+}
+
+p.lead {
+    font-size: 57px;
+    text-align: center;
+    color: #000;
+}
+
+#pyvil_level_container  {
+    background: url(../img/back_levels.png) #fff no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
 #pyvil_remember_container, #pyvil_images_container{
     text-align: center;
     display: none;
 }
 
+#pyvil_images_container img{
+    width: 134px;
+    margin: 7px 55px;
+}
+
+#pyvil_remember_container img{
+    margin: 35px 17px;
+    width: 210px;
+}
+
 #pyvil_remember_container img, #pyvil_images_container img {
     display: inline-block;
-    margin: 10px 10px;
     cursor: pointer;
+    border-radius: 50%;
+    border: 6px solid transparent;
+}
+
+.pyvil_level_list a{
+    display: block;
+    font-family: 'Cubano-Regular';
+    font-size: 53px;
+    padding: 10px;
+    border-radius: 50%;
+    color: #000;
 }
 
 .lol-button{
     display: none;
 }
 
+.start-test{
+    font-size: 57px;
+    color: #000;
+    padding: 25px;
+    border-radius: 50%;
+    border: 1px solid #945fa8;
+}
+
 .check {
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(114,184,100,1);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(114,184,100,1);
-    box-shadow: 0px 0px 15px 0px rgba(114,184,100,1);
+    border: 0px solid #fff200 !important;
 }
 
 .uncheck{
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(168,24,31,1);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(168,24,31,1);
-    box-shadow: 0px 0px 15px 0px rgba(168,24,31,1);
+    border: 0px solid #ef4c5d !important;
 }
