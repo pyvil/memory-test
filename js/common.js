@@ -1,4 +1,5 @@
 /**
+ * @category Common
  * @package Memory_test
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  */
@@ -6,14 +7,7 @@
     "use strict";
 
     /**
-     * Class vars
-     * @type {string}
-     */
-    var
-        testLinkActive = "active",
-        testLinInactive = "disabled";
-
-    /**
+     * Test generating constructor
      * @param {Object} param
      * @param {Array} param.images Is a array with images name.ext
      * @param {Number|String} [param.level] The level to start, by default = 1
@@ -33,43 +27,30 @@
     };
 
     /**
-     *
+     * Test generating function initialization
      * @type {{toInt: Function, toObj: Function, shuffle: Function, getLevel: Function, nextLevel: Function, setLevel: Function, levelLinksGenerate: Function, getImagesToRemember: Function, getAllImages: Function, successSound: Function, failSound: Function, start: Function}}
      */
     Test.prototype = {
-        /**
-         * Helper: convert variable to integer value
-         * @param _var
-         * @returns {number}
-         * @param _default
-         */
-        toInt : function (_var, _default) {
-            return (_var == null || _var == 0)
-                ? _default : parseInt(_var, 10) ;
-        },
-        /**
-         * Helper: convert variable to Object value
-         * @param _var
-         * @returns {Object}
-         * @param _default
-         */
-        toObj : function (_var, _default) {
-            if (typeof _var == 'String') {
-                if ($(_var)) return $(_var);
-                if ($('.' + _var)) return $('.' + _var);
-                if ($('#' + _var)) return $('#' + _var);
-            } else if (typeof _var == 'Object') {
-                return $(_var);
-            }
-            return $(_default);
-            //throw new Error("You pass a wrong parameter, please check parameters you pass!");
-        },
+
         /**
          * shuffle current image sequence
+         * @param arr
          */
-        shuffle : function () {
-            for(var j, x, i = this.images.length; i; j = Math.floor(Math.random() * i), x = this.images[--i], this.images[i] = this.images[j], this.images[j] = x);
+        shuffle : function (arr) {
+            for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
         },
+
+        /**
+         *
+         * @param arr
+         * @returns {*}
+         */
+        getRandomText : function (arr) {
+            this.shuffle(arr);
+            var rand = Math.floor(Math.random() * (arr.length - 1));
+            return arr[rand];
+        },
+
         /**
          * get current level
          * @returns {number}
@@ -93,9 +74,12 @@
         setLevel : function (level) {
             this.start(this.parameters);
             this.level = this.toInt(level, 1);
+
             this.imagesToRemember = this.level * 2;
             var imgs = this.getImagesToRemember();
+
             this.rememberArray = [];
+
             $(this.rememberContainer).html("");
             var self = this;
             imgs.forEach(function (item) {
@@ -105,17 +89,18 @@
                 // push `id`s of elements user have to remember
                 self.rememberArray.push(item.id);
             });
+            self.redirect($(self.rememberContainer).parent());
             $('.start-test').bind('click', function () {
-                $(self.rememberContainer).parent().slideUp('fast', function () {
-                    self.getAllImages();
-                    $(self.imagesOutContainer).parent().slideDown('fast');
-                });
+                self.getAllImages();
+                self.redirect($(self.imagesOutContainer).parent());
+                $('body').attr('id', 'images');
             });
         },
         /**
          * Generate list of levels
          */
         levelLinksGenerate : function () {
+            $('body').attr('id', 'levels');
             var item = null;
             $(this.levelLinksContainer).html('');
             console.log(this.levelsAmount);
@@ -124,9 +109,11 @@
                     "<a href='javascript:void(0)' data-level='"+i+"'>"+i+"</a>"
                 );
             var self = this;
+            // links click
             $(this.levelLinksContainer).delegate('a', 'click', function (e) {
-                if ($(this).hasClass(testLinInactive)) return false;
+                //if ($(this).hasClass(testLinInactive)) return false;
                 self.setLevel($(this).attr('data-level'));
+                $('body').attr('id', '');
             });
         },
         /**
@@ -134,19 +121,15 @@
          * @returns {Array.<T>}
          */
         getImagesToRemember : function () {
-            this.shuffle();
-            var self = this;
-            $(self.levelLinksContainer).parent().slideUp('fast', function () {
-                $(self.rememberContainer).parent().slideDown('fast');
-            });
+            this.shuffle(this.images);
             return this.images.slice(0, this.imagesToRemember);
         },
         /**
-         *
+         * Display all image items we have and test start! :3
          */
         getAllImages : function () {
             $(this.imagesOutContainer).html("");
-            this.shuffle();
+            this.shuffle(this.images);
             var self = this;
             this.images.forEach(function (item) {
                 $(self.imagesOutContainer).append(
@@ -157,24 +140,69 @@
             console.log(count);
             $(self.imagesOutContainer).undelegate('img', 'click');
             $(self.imagesOutContainer).delegate('img', 'click', function() {
+                var time = 5000;
                 if (self.rememberArray.indexOf(self.toInt($(this).attr('data-id'), 0)) != -1) {
                     if ($(this).hasClass('check')) return false;
+
                     $(this).addClass('check');
                     self.sound('check');
                     --count;
                     console.log(count);
+
                     if (count == 0) {
-                        $('.modal').modal('show');
-                        $(self.imagesOutContainer).parent().slideUp('fast', function () {
-                            self.nextLevel();
-                            $(self.levelLinksContainer).parent().slideDown('fast');
-                        });
+                        self.modal
+                            .setBlockBackground('#56caef')
+                            .setText(self.getRandomText(self.failText))
+                            .popup()
+                            .closeAfter(time);
+                        self.redirect($(self.levelLinksContainer).parent(), time);
+                        var iter  = 0;
+                        var close = function () {
+                            if (iter == (time / 1000)) {
+                                self.levelLinksGenerate();
+                            } else {
+                                iter++;
+                                setTimeout(close, 1000);
+                            }
+                        };
+                        close();
                     }
                 } else {
                     if ($(this).hasClass('uncheck')) return false;
+
                     $(this).addClass('uncheck');
-                    self.sound('fail');
+                    //self.sound('fail');
+                    self.sound('fail_message');
+                    self.modal
+                        .setBlockBackground(null)
+                        .setText(self.getRandomText(self.failText))
+                        .popup()
+                        .closeAfter(time);
+                    self.redirect($(self.levelLinksContainer).parent(), time);
+                    var iter  = 0;
+                    var close = function () {
+                        if (iter == (time / 1000)) {
+                            self.levelLinksGenerate();
+                        } else {
+                            iter++;
+                            setTimeout(close, 1000);
+                        }
+                    };
+                    close();
                 }
+            });
+        },
+
+        /**
+         *
+         * @param url
+         */
+        redirect : function (url, waitTime) {
+            waitTime = waitTime || 0;
+            var self = this;
+            $(this.currentPage).delay(waitTime).slideUp('fast', function () {
+                $(url).slideDown('fast');
+                self.currentPage = $(url);
             });
         },
 
@@ -205,32 +233,32 @@
                 self.images.push({'id' : index, 'item' : item});
             });
             /**
-             *
+             * Current level
              * @type {number}
              */
             this.level = this.toInt(param.level, 1);
             /**
-             *
+             * Amount of images user has to remember on each level
              * @type {number}
              */
             this.imagesToRemember = this.toInt(param.imagesToRemember, 2);
             /**
-             *
+             * Level amount
              * @type {number}
              */
             this.levelsAmount = this.toInt(param.levelsAmount, 10);
             /**
-             *
+             * Container with level links
              * @type {Object}
              */
             this.levelLinksContainer = this.toObj(param.levelLinksContainer, '.pyvil_level_list');
             /**
-             *
+             * Container where displaying all images
              * @type {Object}
              */
             this.imagesOutContainer = this.toObj(param.imagesOutContainer, '.pyvil_images_list');
             /**
-             *
+             * Container where displaying items to remember
              * @type {Object}
              */
             this.rememberContainer = this.toObj(param.rememberContainer, '.pyvil_remember_list');
@@ -240,8 +268,54 @@
              * @type {Array}
              */
             this.rememberArray = [];
+
+            /**
+             *
+             * @type {Modal}
+             */
+            this.modal = new Modal();
+
+            /**
+             * Success texts for popup
+             * select random
+             * @type {string[]}
+             */
+            this.successText = [
+                'the best!',
+                'good job!',
+                'it was a success',
+                'you\'re right!',
+                'well done',
+                'this is your moment',
+                'absolutely correct',
+                'you got it right'
+            ];
+
+            /**
+             * Fail texts for popup
+             * @type {string[]}
+             */
+            this.failText = [
+               'don\'t get upset about it!',
+                'next time lucky',
+                'pull yourself together',
+                'believe in yourself',
+                'better luck next time',
+                'don\'t give up and chase your dream!',
+                'cheer up!',
+                'don\'t give up so soon, try again'
+            ];
+
+            /**
+             *
+             * @type {XML|*}
+             */
+            this.currentPage = $(this.levelLinksContainer).parent();
         }
     };
-    /** makes class global */
+    // extends from Helper class
+    $.extend(Test.prototype, Helper.prototype);
+    /** init Test class in global scope */
     window.Test = Test || {};
+
 } (jQuery, window, document) );
