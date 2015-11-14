@@ -28,6 +28,18 @@ body {
     height: 100%;
 }
 
+body#levels{
+    background: url(../img/back_levels.png) #fff no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body#images{
+    background: url(../img/back_all.png) #fff no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 div::after {
     display: table;
     content: ' ';
@@ -56,17 +68,11 @@ p.allItems {
 }
 
 #pyvil_level_container  {
-    background: url(../img/back_levels.png) #fff no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
     width: 100%;
     height: 100%;
 }
 
 #pyvil_images_container {
-    background: url(../img/back_all.png) #fff no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
     width: 100%;
     height: 100%;
 }
@@ -136,54 +142,67 @@ p.allItems {
     border-width: 1px;
 }
 
-@media only screen and (max-width : 1200px) {
-
+.popup {
+    width: 373px;
+    max-height: 350px;
+    border-radius: 50%;
+    padding: 150px 50px;
+    text-align: center;
+    color: #fff;
+    font-family: 'Existence-Light';
+    font-size: 57px;
+    text-transform: uppercase;
+    position: fixed;
+    z-index: 9001;
+    left: 0;
+    top: 0;
 }
 
-/* Medium Devices, Desktops */
-@media only screen and (max-width : 992px) {
-
+.shadow {
+    background: rgba(255,255,255, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9000;
 }
 
-/* Small Devices, Tablets */
-@media only screen and (max-width : 768px) {
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) and (max-width: 479px) {
 
 }
 
 /* Extra Small Devices, Phones */
-@media only screen and (max-width : 480px) {
-
-}
-
-/* Custom, iPhone Retina */
-@media only screen and (max-width : 320px) {
-
-}
-
-
-/*========== Mobile First Method ==========*/
-
-/* Custom, iPhone Retina */
-@media only screen and (min-width : 320px) {
-
-}
-
-/* Extra Small Devices, Phones */
-@media only screen and (min-width : 480px) {
+@media only screen and (min-width : 480px) and (max-width: 767px) {
 
 }
 
 /* Small Devices, Tablets */
-@media only screen and (min-width : 768px) {
+@media only screen and (min-width : 768px) and (max-width: 991px) {
 
 }
 
 /* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {
+@media only screen and (min-width : 992px) and (max-width: 1199px) {
 
 }
 
 /* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {
+@media only screen and (min-width : 1200px) and (max-width: 1367px) {
 
+}
+
+@media only screen and (min-width : 1368px) {
+    .container {
+        max-width: 1500px;
+    }
+
+    #pyvil_images_container img{
+        width: 134px;
+    }
+
+    #pyvil_remember_container img{
+        width: 210px;
+    }
 }
