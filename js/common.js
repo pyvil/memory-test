@@ -1,6 +1,6 @@
 /**
- * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  * @package Memory_test
+ * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  */
 (function ($, window, document) {
     "use strict";
@@ -29,10 +29,13 @@
         this.start(param);
         this.parameters = param;
 
-        /** */
         this.levelLinksGenerate();
     };
 
+    /**
+     *
+     * @type {{toInt: Function, toObj: Function, shuffle: Function, getLevel: Function, nextLevel: Function, setLevel: Function, levelLinksGenerate: Function, getImagesToRemember: Function, getAllImages: Function, successSound: Function, failSound: Function, start: Function}}
+     */
     Test.prototype = {
         /**
          * Helper: convert variable to integer value
@@ -156,9 +159,8 @@
             $(self.imagesOutContainer).delegate('img', 'click', function() {
                 if (self.rememberArray.indexOf(self.toInt($(this).attr('data-id'), 0)) != -1) {
                     if ($(this).hasClass('check')) return false;
-                    $(this).toggleClass('check');
-                    $(this).animate({borderWidth : 7}, 'fast');
-                    self.successSound();
+                    $(this).addClass('check');
+                    self.sound('check');
                     --count;
                     console.log(count);
                     if (count == 0) {
@@ -169,31 +171,26 @@
                         });
                     }
                 } else {
-                    $(this).toggleClass('uncheck');
-                    $(this).animate({borderWidth : 7}, 'fast');
-                    self.failSound();
+                    if ($(this).hasClass('uncheck')) return false;
+                    $(this).addClass('uncheck');
+                    self.sound('fail');
                 }
             });
         },
 
-        successSound : function () {
+        /**
+         * When smth happened in app we add a sound
+         */
+        sound : function (name) {
             var snd = new Howl({
-                urls : ['audio/check.wav'],
-                volume : 0.2
-            });
-            snd.play();
-        },
-
-        failSound : function () {
-            var snd = new Howl({
-                urls : ['audio/fail.wav'],
+                urls : ['audio/' + name +'.wav'],
                 volume : 0.2
             });
             snd.play();
         },
 
         /**
-         *
+         * Collect all things app should work with
          * @param param
          */
         start : function (param) {
