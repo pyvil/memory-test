@@ -28,9 +28,17 @@ body {
     height: 100%;
 }
 
+div::after {
+    display: table;
+    content: ' ';
+    clear: both;
+}
+
 .container{
     max-width: 1200px;
+    width: 100%;
     padding: 10px;
+    margin: 0 auto;
 }
 
 p.lead {
@@ -39,9 +47,26 @@ p.lead {
     color: #000;
 }
 
+p.levelPrev {
+    margin: 140px 0;
+}
+
+p.allItems {
+    margin: 50px 0;
+}
+
 #pyvil_level_container  {
     background: url(../img/back_levels.png) #fff no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#pyvil_images_container {
+    background: url(../img/back_all.png) #fff no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     width: 100%;
     height: 100%;
 }
@@ -49,11 +74,12 @@ p.lead {
 #pyvil_remember_container, #pyvil_images_container{
     text-align: center;
     display: none;
+    margin: 0 auto;
 }
 
 #pyvil_images_container img{
     width: 134px;
-    margin: 7px 55px;
+    margin: 10px 55px;
 }
 
 #pyvil_remember_container img{
@@ -65,17 +91,20 @@ p.lead {
     display: inline-block;
     cursor: pointer;
     border-radius: 50%;
-    border: 6px solid transparent;
+    border: 1px solid transparent;
+    overflow: hidden;
+    position: relative;
 }
 
 
 .pyvil_level_list a{
-    display: block;
     font-family: 'Cubano-Regular';
     font-size: 53px;
     padding: 10px;
     border-radius: 50%;
     color: #000;
+    display: inline-block;
+    margin: 10px;
 }
 
 .lol-button{
@@ -88,12 +117,73 @@ p.lead {
     padding: 25px;
     border-radius: 50%;
     border: 1px solid #945fa8;
+    margin-top: 140px;
+    margin-bottom: 80px;
+    display: inline-block;
 }
 
 .check {
-    border: 0px solid #fff200 !important;
+    /*border: 7px solid #fff200 !important;*/
+    background: #fff200 no-repeat;
+    background-position: 6px 6px;
+    border-width: 1px;
 }
 
 .uncheck{
-    border: 0px solid #ef4c5d !important;
+    /*border: 7px solid #ef4c5d !important;*/
+    background: #ef4c5d no-repeat;
+    background-position: 6px 6px;
+    border-width: 1px;
+}
+
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+
+}
+
+
+/*========== Mobile First Method ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
 }
