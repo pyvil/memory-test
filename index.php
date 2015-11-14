@@ -17,11 +17,11 @@
     <script src = "js/common.js"></script>
     <script>
         <?php
-            $images = scandir("img/test");
+            $images = scandir("img/test/svg/");
             $arr = array();
             foreach($images as $img) {
                 if (($img[0] != '.') && (count(explode('.', $img)) > 1))
-                    $arr[] = "'img/test/{$img}'";
+                    $arr[] = "'img/test/svg/{$img}'";
             }
         ?>
         $(document).ready(function () {
@@ -33,15 +33,15 @@
 </head>
 <body>
 <div id="pyvil_level_container">
-    <div class="pyvil_level_list container"></div>
+    <div class="pyvil_level_list"></div>
 </div>
 <div id="pyvil_remember_container">
-    <p class="lead">observe those items</p>
+    <p class="lead levelPrev">observe those items</p>
     <div class="pyvil_remember_list container"></div>
     <a class="start-test" href="javascript:void(0)">ok</a>
 </div>
 <div id="pyvil_images_container">
-    <p class="lead">find items from the previous screen</p>
+    <p class="lead allItems">find items from the previous screen</p>
     <div class="pyvil_images_list container"></div>
 </div>
 </body>
