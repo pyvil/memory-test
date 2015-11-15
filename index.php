@@ -36,6 +36,9 @@
 <body id="levels">
 <div id="pyvil_level_container">
     <div class="pyvil_level_list"></div>
+    <div class="level_list_bg">
+        <img src="img/levels.png" alt="">
+    </div>
 </div>
 <div id="pyvil_remember_container">
     <p class="lead levelPrev">observe those items</p>
