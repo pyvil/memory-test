@@ -37,10 +37,14 @@ Modal.prototype = {
         return this;
     },
 
+    /**
+     * Add popup markup and show it
+     * @returns {Modal}
+     */
     popup : function () {
         this.testDefaults();
         $('body').append(
-            "<div class='popup' style='background: " + this.background + "; display: none;'>" + this.text + "</div>"
+            "<div class='popup' style='background: " + this.background + "; display: none;'><span>" + this.text + "</span></div>"
             + "<div class='shadow' style='display: none;'></div>"
         );
         this.center_overlay_modal({obj : '.popup'});
@@ -51,7 +55,7 @@ Modal.prototype = {
     },
 
     /**
-     *
+     * Close popup after time in param
      * @param time
      */
     closeAfter : function (time) {

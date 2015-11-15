@@ -6,6 +6,9 @@
 (function ($, window, document) {
     "use strict";
 
+    var
+        volume = 0.8;
+
     /**
      * Test generating constructor
      * @param {Object} param
@@ -106,7 +109,7 @@
             console.log(this.levelsAmount);
             for (var i = 1; i <= this.levelsAmount; i++)
                 $(this.levelLinksContainer).append(
-                    "<a href='javascript:void(0)' data-level='"+i+"'>"+i+"</a>"
+                    "<a href='javascript:void(0)' data-level='" + i + "' id='level-" + i + "'>" + i + "</a>"
                 );
             var self = this;
             // links click
@@ -152,20 +155,11 @@
                     if (count == 0) {
                         self.modal
                             .setBlockBackground('#56caef')
-                            .setText(self.getRandomText(self.failText))
+                            .setText(self.getRandomText(self.successText))
                             .popup()
                             .closeAfter(time);
                         self.redirect($(self.levelLinksContainer).parent(), time);
-                        var iter  = 0;
-                        var close = function () {
-                            if (iter == (time / 1000)) {
-                                self.levelLinksGenerate();
-                            } else {
-                                iter++;
-                                setTimeout(close, 1000);
-                            }
-                        };
-                        close();
+                        self.waitForAndRedirect(time);
                     }
                 } else {
                     if ($(this).hasClass('uncheck')) return false;
@@ -179,22 +173,13 @@
                         .popup()
                         .closeAfter(time);
                     self.redirect($(self.levelLinksContainer).parent(), time);
-                    var iter  = 0;
-                    var close = function () {
-                        if (iter == (time / 1000)) {
-                            self.levelLinksGenerate();
-                        } else {
-                            iter++;
-                            setTimeout(close, 1000);
-                        }
-                    };
-                    close();
+                    self.waitForAndRedirect(time);
                 }
             });
         },
 
         /**
-         *
+         * Redirect to other block
          * @param url
          */
         redirect : function (url, waitTime) {
@@ -207,12 +192,30 @@
         },
 
         /**
+         *
+         * @param time
+         */
+        waitForAndRedirect : function (time) {
+            var iter  = 0;
+            var self = this;
+            var close = function () {
+                if (iter == (time / 1000)) {
+                    self.levelLinksGenerate();
+                } else {
+                    iter++;
+                    setTimeout(close, 1000);
+                }
+            };
+            close();
+        },
+
+        /**
          * When smth happened in app we add a sound
          */
         sound : function (name) {
             var snd = new Howl({
                 urls : ['audio/' + name +'.wav'],
-                volume : 0.2
+                volume : volume
             });
             snd.play();
         },
