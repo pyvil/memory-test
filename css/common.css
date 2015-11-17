@@ -133,29 +133,25 @@ p.allItems {
 }
 
 #level-1{
-    top: 10px;
-    left: 35px;
+    /*top: 10px;*/
+    left: 4%;
     width: 64px;
     height: 64px;
-}
-
-#level-1{
-    top: 10px;
-    left: 35px;
-    width: 64px;
-    height: 64px;
+    margin-top: 2%;
 }
 
 #level-2{
-    top: 135px;
-    left: 120px;
+    /* top: 135px; */
+    margin-top: 16%;
+    left: 13%;
     width: 64px;
     height: 64px;
 }
 
 #level-3{
-    left: 193px;
-    top: 20px;
+    left: 20%;
+    margin-top: 5%;
+    /* top: 20px; */
     width: 64px;
     height: 64px;
     font-size: 50px;
@@ -164,54 +160,61 @@ p.allItems {
 #level-4{
     width: 64px;
     height: 64px;
-    left: 268px;
-    top: 115px;
+    left: 28%;
+    /* top: 115px; */
+    margin-top: 14%;
 }
 
 #level-5{
     width: 64px;
     height: 64px;
-    left: 395px;
-    top: 148px;
+    margin-top: 17%;
+    left: 41%;
+    /* top: 148px; */
     font-size: 50px;
 }
 
 #level-6{
     width: 64px;
     height: 64px;
-    left: 490px;
-    top: 61px;
+    left: 51%;
+    margin-top: 9%;
+    /* top: 61px; */
     font-size: 50px;
 }
 
 #level-7{
     width: 64px;
     height: 64px;
-    left: 610px;
-    top: 33px;
+    left: 63%;
+    margin-top: 6%;
+    /* top: 33px; */
     font-size: 50px;
 }
 
 #level-8{
     width: 64px;
     height: 64px;
-    left: 644px;
-    top: 131px;
+    left: 67%;
+    margin-top: 16%;
+    /* top: 131px; */
     font-size: 43px;
 }
 
 #level-9{
     width: 64px;
     height: 64px;
-    left: 727px;
-    top: 161px;
+    left: 75%;
+    margin-top: 19%;
+    /* top: 161px; */
     font-size: 43px;
 }
 
 #level-10{
     width: 64px;
     height: 64px;
-    left: 727px;
+    left: 75%;
+    margin-top: 11%;
     top: 265px;
     font-size: 30px;
 }
@@ -295,7 +298,7 @@ p.allItems {
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) and (max-width: 1199px) {
 
-    #level-1{
+    /*#level-1{
         top: 10px;
         left: 47px;
         width: 64px;
@@ -373,13 +376,13 @@ p.allItems {
         left: 872px;
         top: 319px;
         font-size: 37px;
-    }
+    }*/
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) and (max-width: 1367px) {
 
-    #level-1{
+    /*#level-1{
         top: 10px;
         left: 47px;
         width: 64px;
@@ -457,7 +460,7 @@ p.allItems {
         left: 872px;
         top: 319px;
         font-size: 37px;
-    }
+    }*/
 }
 
 @media only screen and (min-width : 1368px) {
@@ -465,7 +468,7 @@ p.allItems {
         max-width: 1500px;
     }
 
-    #pyvil_images_container img{
+    /*#pyvil_images_container img{
         width: 134px;
     }
 
@@ -551,5 +554,5 @@ p.allItems {
         left: 872px;
         top: 319px;
         font-size: 37px;
-    }
+    }*/
 }
