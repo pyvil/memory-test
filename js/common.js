@@ -159,6 +159,7 @@
                             .popup()
                             .closeAfter(time);
                         self.redirect($(self.levelLinksContainer).parent(), time);
+                        self.sound('success_message');
                         self.waitForAndRedirect(time);
                     }
                 } else {
