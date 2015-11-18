@@ -1,6 +1,6 @@
 /**
- * @category Test_Helper
- * @package Helper
+ * @category Helper
+ * @package Test_Helper
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  * @type {{toInt: Function, toObj: Function}}
  */

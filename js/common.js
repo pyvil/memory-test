@@ -6,7 +6,12 @@
 (function ($, window, document) {
     "use strict";
 
+    /**
+     * Global class variables
+     * @type {number}
+     */
     var
+        // volume sounds in app
         volume = 0.8;
 
     /**
@@ -44,7 +49,7 @@
         },
 
         /**
-         *
+         * Get random value from array by index
          * @param arr
          * @returns {*}
          */

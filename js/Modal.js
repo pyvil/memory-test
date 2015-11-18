@@ -1,6 +1,6 @@
 /**
- * @category Test_Model
- * @package Model
+ * @category Model
+ * @package Test_Model
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  */
 
@@ -78,16 +78,15 @@ Modal.prototype = {
     },
 
     /**
-     *
+     * When start using add defaults if necessary
      */
     start : function () {
-        this.text = this.text == null ? 'the best!' : this.text;
-        this.background = this.background == null ? '#7d77b7' : this.background;
+        this.testDefaults();
         //this.popup();
     },
 
     /**
-     *
+     * Testing defaults values
      */
     testDefaults : function () {
         this.text = this.text == null ? 'the best!' : this.text;
