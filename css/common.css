@@ -12,6 +12,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Existence-Light';
+    box-sizing: border-box;
 }
 
 a {
@@ -25,7 +26,8 @@ html {
 
 body {
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+    font-size: 57px;
 }
 
 body#levels{
@@ -54,22 +56,23 @@ div::after {
 }
 
 p.lead {
-    font-size: 57px;
+    font-size: 100%;
     text-align: center;
     color: #000;
 }
 
 p.levelPrev {
-    margin: 140px 0;
+    margin-bottom: 10px;
 }
 
 p.allItems {
-    margin: 50px 0;
+    margin-bottom: 10px;
 }
 
 #pyvil_level_container  {
-    width: 100%;
-    height: 100%;
+    width: 70%;
+    position: relative;
+    margin-top: 13%;
 }
 
 #pyvil_images_container {
@@ -84,12 +87,12 @@ p.allItems {
 }
 
 #pyvil_images_container img{
-    width: 134px;
-    margin: 10px 55px;
+    width: 165px;
+    /*margin: 10px 55px;*/
 }
 
 #pyvil_remember_container img{
-    margin: 35px 17px;
+    /*margin: 17px 8px;*/
     width: 210px;
 }
 
@@ -103,14 +106,12 @@ p.allItems {
 }
 
 .level_list_bg{
-    width: 90%;
-    height: 85%;
-    overflow: hidden;
-    margin-left: 20px;
+    width: 100%;
+    max-width: 1300px;
 }
 
 .level_list_bg img{
-    width: 90%;
+    width: 100%;
     z-index: -1000;
 }
 
@@ -120,7 +121,7 @@ p.allItems {
 
 .pyvil_level_list a{
     font-family: 'Cubano-Regular';
-    font-size: 57px;
+    font-size: 100%;
     padding: 10px;
     border-radius: 50%;
     color: #000;
@@ -135,8 +136,8 @@ p.allItems {
 #level-1{
     /*top: 10px;*/
     left: 4%;
-    width: 64px;
-    height: 64px;
+    
+    
     margin-top: 2%;
 }
 
@@ -144,30 +145,28 @@ p.allItems {
     /* top: 135px; */
     margin-top: 16%;
     left: 13%;
-    width: 64px;
-    height: 64px;
 }
 
 #level-3{
     left: 20%;
     margin-top: 5%;
     /* top: 20px; */
-    width: 64px;
-    height: 64px;
+    
+    
     font-size: 50px;
 }
 
 #level-4{
-    width: 64px;
-    height: 64px;
+    
+    
     left: 28%;
     /* top: 115px; */
     margin-top: 14%;
 }
 
 #level-5{
-    width: 64px;
-    height: 64px;
+    
+    
     margin-top: 17%;
     left: 41%;
     /* top: 148px; */
@@ -175,8 +174,8 @@ p.allItems {
 }
 
 #level-6{
-    width: 64px;
-    height: 64px;
+    
+    
     left: 51%;
     margin-top: 9%;
     /* top: 61px; */
@@ -184,8 +183,6 @@ p.allItems {
 }
 
 #level-7{
-    width: 64px;
-    height: 64px;
     left: 63%;
     margin-top: 6%;
     /* top: 33px; */
@@ -193,8 +190,6 @@ p.allItems {
 }
 
 #level-8{
-    width: 64px;
-    height: 64px;
     left: 67%;
     margin-top: 16%;
     /* top: 131px; */
@@ -202,8 +197,8 @@ p.allItems {
 }
 
 #level-9{
-    width: 64px;
-    height: 64px;
+    
+    
     left: 75%;
     margin-top: 19%;
     /* top: 161px; */
@@ -211,11 +206,11 @@ p.allItems {
 }
 
 #level-10{
-    width: 64px;
-    height: 64px;
+    
+    
     left: 75%;
-    margin-top: 11%;
-    top: 265px;
+    margin-top: 28%;
+    /*top: 265px;*/
     font-size: 30px;
 }
 
@@ -224,18 +219,15 @@ p.allItems {
 }
 
 .start-test{
-    font-size: 57px;
+    font-size: 100%;
     color: #000;
     padding: 25px;
     border-radius: 50%;
     border: 1px solid #945fa8;
-    margin-top: 140px;
-    margin-bottom: 80px;
     display: inline-block;
 }
 
 .check {
-    /*border: 7px solid #fff200 !important;*/
     background: #fff200 no-repeat;
     background-position: 6px 6px;
     border-width: 1px;
@@ -249,14 +241,16 @@ p.allItems {
 }
 
 .popup {
-    width: 620px;
-    height: 620px;
+    max-width: 620px;
+    max-height: 620px;
+    width: 100%;
+    height: 100%;
     padding: 10px;
     border-radius: 50%;
     text-align: center;
     color: #fff;
     font-family: 'Existence-Light';
-    font-size: 57px;
+    font-size: 100%;
     text-transform: uppercase;
     position: fixed;
     z-index: 9001;
@@ -268,9 +262,11 @@ p.allItems {
 .popup span {
     vertical-align: middle;
     display: table-cell;
+    -ms-word-break: break-all;
+    word-break: break-all;
 }
 
-.shadow {
+.shadow, .shadow-screen {
     background: rgba(255,255,255, 0.7);
     position: fixed;
     left: 0;
@@ -280,9 +276,23 @@ p.allItems {
     z-index: 9000;
 }
 
-/* Custom, iPhone Retina */
-@media only screen and (min-width : 320px) and (max-width: 479px) {
+.screen{
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    display: none;
+    z-index: 9001;
+}
 
+.screen img {
+    width: 100%;
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) and (max-width: 620px) {
+    .popup{
+        height: 60%;
+    }
 }
 
 /* Extra Small Devices, Phones */
@@ -298,261 +308,16 @@ p.allItems {
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) and (max-width: 1199px) {
 
-    /*#level-1{
-        top: 10px;
-        left: 47px;
-        width: 64px;
-        height: 64px;
-        font-size: 77px
-    }
-
-    #level-2{
-        top: 163px;
-        left: 144px;
-        width: 64px;
-        height: 64px;
-        font-size: 70px;
-    }
-
-    #level-3{
-        left: 230px;
-        top: 31px;
-        width: 64px;
-        height: 64px;
-        font-size: 61px;
-    }
-
-    #level-4{
-        width: 64px;
-        height: 64px;
-        left: 322px;
-        top: 134px;
-        font-size: 77px;
-    }
-
-    #level-5{
-        width: 64px;
-        height: 64px;
-        left: 471px;
-        top: 175px;
-        font-size: 61px;
-    }
-
-    #level-6{
-        width: 64px;
-        height: 64px;
-        left: 587px;
-        top: 77px;
-        font-size: 61px;
-    }
-
-    #level-7{
-        width: 64px;
-        height: 64px;
-        left: 728px;
-        top: 42px;
-        font-size: 61px;
-    }
-
-    #level-8{
-        width: 64px;
-        height: 64px;
-        left: 770px;
-        top: 161px;
-        font-size: 50px;
-    }
-
-    #level-9{
-        width: 64px;
-        height: 64px;
-        left: 869px;
-        top: 199px;
-        font-size: 47px;
-    }
-
-    #level-10{
-        width: 64px;
-        height: 64px;
-        left: 872px;
-        top: 319px;
-        font-size: 37px;
-    }*/
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) and (max-width: 1367px) {
 
-    /*#level-1{
-        top: 10px;
-        left: 47px;
-        width: 64px;
-        height: 64px;
-        font-size: 77px
-    }
-
-    #level-2{
-        top: 163px;
-        left: 144px;
-        width: 64px;
-        height: 64px;
-        font-size: 70px;
-    }
-
-    #level-3{
-        left: 230px;
-        top: 31px;
-        width: 64px;
-        height: 64px;
-        font-size: 61px;
-    }
-
-    #level-4{
-        width: 64px;
-        height: 64px;
-        left: 322px;
-        top: 134px;
-        font-size: 77px;
-    }
-
-    #level-5{
-        width: 64px;
-        height: 64px;
-        left: 471px;
-        top: 175px;
-        font-size: 61px;
-    }
-
-    #level-6{
-        width: 64px;
-        height: 64px;
-        left: 587px;
-        top: 77px;
-        font-size: 61px;
-    }
-
-    #level-7{
-        width: 64px;
-        height: 64px;
-        left: 728px;
-        top: 42px;
-        font-size: 61px;
-    }
-
-    #level-8{
-        width: 64px;
-        height: 64px;
-        left: 770px;
-        top: 161px;
-        font-size: 50px;
-    }
-
-    #level-9{
-        width: 64px;
-        height: 64px;
-        left: 869px;
-        top: 199px;
-        font-size: 47px;
-    }
-
-    #level-10{
-        width: 64px;
-        height: 64px;
-        left: 872px;
-        top: 319px;
-        font-size: 37px;
-    }*/
 }
 
 @media only screen and (min-width : 1368px) {
     .container {
-        max-width: 1500px;
+        max-width: 100%;
     }
 
-    /*#pyvil_images_container img{
-        width: 134px;
-    }
-
-    #pyvil_remember_container img{
-        width: 210px;
-    }
-
-    /*#level-1{
-        top: 10px;
-        left: 47px;
-        width: 64px;
-        height: 64px;
-        font-size: 77px
-    }
-
-    #level-2{
-        top: 163px;
-        left: 144px;
-        width: 64px;
-        height: 64px;
-        font-size: 70px;
-    }
-
-    #level-3{
-        left: 230px;
-        top: 31px;
-        width: 64px;
-        height: 64px;
-        font-size: 61px;
-    }
-
-    #level-4{
-        width: 64px;
-        height: 64px;
-        left: 322px;
-        top: 134px;
-        font-size: 77px;
-    }
-
-    #level-5{
-        width: 64px;
-        height: 64px;
-        left: 471px;
-        top: 175px;
-        font-size: 61px;
-    }
-
-    #level-6{
-        width: 64px;
-        height: 64px;
-        left: 587px;
-        top: 77px;
-        font-size: 61px;
-    }
-
-    #level-7{
-        width: 64px;
-        height: 64px;
-        left: 728px;
-        top: 42px;
-        font-size: 61px;
-    }
-
-    #level-8{
-        width: 64px;
-        height: 64px;
-        left: 770px;
-        top: 161px;
-        font-size: 50px;
-    }
-
-    #level-9{
-        width: 64px;
-        height: 64px;
-        left: 869px;
-        top: 199px;
-        font-size: 47px;
-    }
-
-    #level-10{
-        width: 64px;
-        height: 64px;
-        left: 872px;
-        top: 319px;
-        font-size: 37px;
-    }*/
 }
