@@ -34,20 +34,22 @@
     </script>
 </head>
 <body id="levels">
-<div id="pyvil_level_container">
-    <div class="pyvil_level_list"></div>
-    <div class="level_list_bg">
-        <img src="img/levels.png" alt="">
+    <div id="pyvil_level_container">
+        <div class="pyvil_level_list"></div>
+        <div class="level_list_bg">
+            <img src="img/levels.png" alt="">
+        </div>
     </div>
-</div>
-<div id="pyvil_remember_container">
-    <p class="lead levelPrev">observe those items</p>
-    <div class="pyvil_remember_list container"></div>
-    <a class="start-test" href="javascript:void(0)">ok</a>
-</div>
-<div id="pyvil_images_container">
-    <p class="lead allItems">find items from the previous screen</p>
-    <div class="pyvil_images_list container"></div>
-</div>
+    <div id="pyvil_remember_container">
+        <p class="lead levelPrev">observe those items</p>
+        <div class="pyvil_remember_list container"></div>
+        <a class="start-test" href="javascript:void(0)">ok</a>
+    </div>
+    <div id="pyvil_images_container">
+        <p class="lead allItems">find items from the previous screen</p>
+        <div class="pyvil_images_list container"></div>
+    </div>
+    <div class="shadow-screen" style="display: none;"></div>
+    <div class="screen"><img src="img/hand.svg" alt=""></div>
 </body>
 </html>
