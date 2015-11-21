@@ -127,8 +127,8 @@ p.allItems {
     margin: 10px;
     z-index: 2000;
     position: absolute;
-    vertical-align: middle;
-    display: table;
+    /*vertical-align: middle;
+    display: table;*/
     text-align: center;
 }
 
@@ -476,7 +476,7 @@ p.allItems {
         width: 210px;
     }
 
-    #level-1{
+    /*#level-1{
         top: 10px;
         left: 47px;
         width: 64px;
