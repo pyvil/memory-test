@@ -12,7 +12,10 @@
      */
     var
         // volume sounds in app
-        volume = 0.8;
+        volume                      = 0.8,
+        waitTime                    = 2000,
+        failBackgroundColor         = '#56caef',
+        successBackgroundColor      = '#7d77b7';
 
     /**
      * Test generating constructor
@@ -41,206 +44,27 @@
     Test.prototype = {
 
         /**
-         * shuffle current image sequence
-         * @param arr
-         */
-        shuffle : function (arr) {
-            for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
-        },
-
-        /**
-         * Get random value from array by index
-         * @param arr
-         * @returns {*}
-         */
-        getRandomText : function (arr) {
-            this.shuffle(arr);
-            var rand = Math.floor(Math.random() * (arr.length - 1));
-            return arr[rand];
-        },
-
-        /**
-         * get current level
-         * @returns {number}
-         */
-        getLevel : function() {
-            return this.level;
-        },
-        /**
-         * Next level double images to remember
-         * and increment current level (cap :D)
-         */
-        nextLevel : function () {
-            this.level += 1;
-            this.imagesToRemember *= 2;
-            this.levelLinksGenerate();
-        },
-        /**
-         * set level
-         * @param {number|string} level
-         */
-        setLevel : function (level) {
-            this.start(this.parameters);
-            this.level = this.toInt(level, 1);
-
-            this.imagesToRemember = this.level * 2;
-            var imgs = this.getImagesToRemember();
-
-            this.rememberArray = [];
-
-            $(this.rememberContainer).html("");
-            var self = this;
-            imgs.forEach(function (item) {
-                $(self.rememberContainer).append (
-                    "<img src = '" + item.item + "' data-id='" + item.id + "'>"
-                );
-                // push `id`s of elements user have to remember
-                self.rememberArray.push(item.id);
-            });
-            self.redirect($(self.rememberContainer).parent());
-            $('.start-test').bind('click', function () {
-                self.getAllImages();
-                self.redirect($(self.imagesOutContainer).parent());
-                $('body').attr('id', 'images');
-            });
-        },
-        /**
-         * Generate list of levels
-         */
-        levelLinksGenerate : function () {
-            $('body').attr('id', 'levels');
-            var item = null;
-            $(this.levelLinksContainer).html('');
-            console.log(this.levelsAmount);
-            for (var i = 1; i <= this.levelsAmount; i++)
-                $(this.levelLinksContainer).append(
-                    "<a href='javascript:void(0)' data-level='" + i + "' id='level-" + i + "'>" + i + "</a>"
-                );
-            var self = this;
-            // links click
-            $(this.levelLinksContainer).delegate('a', 'click', function (e) {
-                //if ($(this).hasClass(testLinInactive)) return false;
-                self.setLevel($(this).attr('data-level'));
-                $('body').attr('id', '');
-            });
-        },
-        /**
-         * Get an array of images you have to remember
-         * @returns {Array.<T>}
-         */
-        getImagesToRemember : function () {
-            this.shuffle(this.images);
-            return this.images.slice(0, this.imagesToRemember);
-        },
-        /**
-         * Display all image items we have and test start! :3
-         */
-        getAllImages : function () {
-            $(this.imagesOutContainer).html("");
-            this.shuffle(this.images);
-            var self = this;
-            this.images.forEach(function (item) {
-                $(self.imagesOutContainer).append(
-                    "<img src = '" + item.item + "' data-id='" + item.id + "'>"
-                );
-            });
-            var count = this.rememberArray.length;
-            console.log(count);
-            $(self.imagesOutContainer).undelegate('img', 'click');
-            $(self.imagesOutContainer).delegate('img', 'click', function() {
-                var time = 5000;
-                if (self.rememberArray.indexOf(self.toInt($(this).attr('data-id'), 0)) != -1) {
-                    if ($(this).hasClass('check')) return false;
-
-                    $(this).addClass('check');
-                    self.sound('check');
-                    --count;
-                    console.log(count);
-
-                    if (count == 0) {
-                        self.modal
-                            .setBlockBackground('#56caef')
-                            .setText(self.getRandomText(self.successText))
-                            .popup()
-                            .closeAfter(time);
-                        self.redirect($(self.levelLinksContainer).parent(), time);
-                        self.sound('success_message');
-                        self.waitForAndRedirect(time);
-                    }
-                } else {
-                    if ($(this).hasClass('uncheck')) return false;
-
-                    $(this).addClass('uncheck');
-                    //self.sound('fail');
-                    self.sound('fail_message');
-                    self.modal
-                        .setBlockBackground(null)
-                        .setText(self.getRandomText(self.failText))
-                        .popup()
-                        .closeAfter(time);
-                    self.redirect($(self.levelLinksContainer).parent(), time);
-                    self.waitForAndRedirect(time);
-                }
-            });
-        },
-
-        /**
-         * Redirect to other block
-         * @param url
-         */
-        redirect : function (url, waitTime) {
-            waitTime = waitTime || 0;
-            var self = this;
-            $(this.currentPage).delay(waitTime).slideUp('fast', function () {
-                $(url).slideDown('fast');
-                self.currentPage = $(url);
-            });
-        },
-
-        /**
-         *
-         * @param time
-         */
-        waitForAndRedirect : function (time) {
-            var iter  = 0;
-            var self = this;
-            var close = function () {
-                if (iter == (time / 1000)) {
-                    self.levelLinksGenerate();
-                } else {
-                    iter++;
-                    setTimeout(close, 1000);
-                }
-            };
-            close();
-        },
-
-        /**
-         * When smth happened in app we add a sound
-         */
-        sound : function (name) {
-            var snd = new Howl({
-                urls : ['audio/' + name +'.wav'],
-                volume : volume
-            });
-            snd.play();
-        },
-
-        /**
          * Collect all things app should work with
          * @param param
          */
         start : function (param) {
             /**
-             *
+             * All images
              * @type {Array}
              */
-            this.images = [];
-            var self = this;
+            var allImages = [];
             // makes an object of each image, added `path` and `id`
             param.images.forEach(function (item, index) {
-                self.images.push({'id' : index, 'item' : item});
+                allImages.push({'id' : index, 'item' : item});
             });
+            // shuffle all images
+            this.shuffle(allImages);
+            /**
+             * Array with images we work with
+             * @type {Array.<T>}
+             */
+            this.images = allImages.slice(0, 42);
+
             /**
              * Current level
              * @type {number}
@@ -279,7 +103,7 @@
             this.rememberArray = [];
 
             /**
-             *
+             * Modal instance
              * @type {Modal}
              */
             this.modal = new Modal();
@@ -292,12 +116,12 @@
             this.successText = [
                 'the best!',
                 'good job!',
-                'it was a success',
+                'it was a<br>success',
                 'you\'re right!',
                 'well done',
-                'this is your moment',
-                'absolutely correct',
-                'you got it right'
+                'this is your<br>moment',
+                'absolutely<br>correct',
+                'you got it<br>right'
             ];
 
             /**
@@ -305,21 +129,261 @@
              * @type {string[]}
              */
             this.failText = [
-               'don\'t get upset about it!',
-                'next time lucky',
-                'pull yourself together',
-                'believe in yourself',
-                'better luck next time',
-                'don\'t give up and chase your dream!',
+                'don\'t get<br>upset about it!',
+                'next time<br>lucky',
+                'pull yourself<br>together<br>and try again',
+                'believe in yourself!<br>try again',
+                'better luck<br>next time',
+                'don\'t give up<br>and<br>chase your dream',
                 'cheer up!',
-                'don\'t give up so soon, try again'
+                'don\'t give up<br>so soon<br>try again'
             ];
 
             /**
              *
+             * @type {{1: string, 2: string, 3: string, 4: string, 5: string, 6: string, 7: string, 8: string, 9: string, 10: string}}
+             */
+            this.imagesLevelSize = {
+                1 : '288x288',
+                2 : '270x270',
+                3 : '245x245',
+                4 : '220x220',
+                5 : '220x220',
+                6 : '220x220',
+                7 : '205x205',
+                8 : '190x190',
+                9 : '185x185',
+                10 : '165x165'
+            };
+
+            /**
+             * Current page link
              * @type {XML|*}
              */
             this.currentPage = $(this.levelLinksContainer).parent();
+        },
+
+        /**
+         * shuffle current image sequence
+         * @param arr
+         */
+        shuffle : function (arr) {
+            for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+        },
+
+        /**
+         * Get random value from array by index
+         * @param arr
+         * @returns {*}
+         */
+        getRandomText : function (arr) {
+            this.shuffle(arr);
+            var rand = Math.floor(Math.random() * (arr.length - 1));
+            return arr[rand];
+        },
+
+        /**
+         * get current level
+         * @returns {number}
+         */
+        getLevel : function() {
+            return this.level;
+        },
+        /**
+         * Next level double images to remember
+         * and increment current level (cap :D)
+         */
+        nextLevel : function () {
+            this.setLevel(this.getLevel() + 1);
+            $('body').attr('id', '');
+        },
+
+        /**
+         * Start screen image
+         */
+        startScreen : function () {
+            this.center_overlay_modal({obj : '.screen'});
+            $('.shadow-screen').fadeIn('slow', function () {
+                $('.screen').fadeIn('slow', function () {
+                    $('.shadow-screen, .screen').bind('touchmove', function (e) {
+                        $('.screen').fadeOut('slow', function () {
+                            $('.shadow-screen').fadeOut('slow');
+                        });
+                    });
+
+                    $('.shadow-screen, .screen').bind('mousemove', function (e) {
+                        $('.screen').fadeOut('slow', function () {
+                            $('.shadow-screen').fadeOut('slow');
+                        });
+                    });
+                });
+            });
+        },
+
+        /**
+         * set level
+         * @param {number|string} level
+         */
+        setLevel : function (level) {
+            this.start(this.parameters);
+            this.level = this.toInt(level, 1);
+
+            this.imagesToRemember = this.level * 2;
+            var imgs = this.getImagesToRemember();
+
+            this.rememberArray = [];
+
+            $(this.rememberContainer).html("");
+            var self = this;
+            var size = this.imagesLevelSize[this.getLevel()].split('x');
+            imgs.forEach(function (item) {
+                $(self.rememberContainer).append (
+                    "<img src = '" + item.item + "' data-id='" + item.id + "' style='width: " + size[0] + "px; height: " + size[1] + "px;'>"
+                );
+                // push `id`s of elements user have to remember
+                self.rememberArray.push(item.id);
+            });
+            self.redirect($(self.rememberContainer).parent());
+            $('.start-test').bind('click', function () {
+                self.getAllImages();
+                self.redirect($(self.imagesOutContainer).parent());
+                $('body').attr('id', 'images');
+            });
+        },
+        /**
+         * Generate list of levels
+         */
+        levelLinksGenerate : function () {
+            this.startScreen();
+            $('body').attr('id', 'levels');
+            $(this.levelLinksContainer).html('');
+            console.log(this.levelsAmount);
+            for (var i = 1; i <= this.levelsAmount; i++)
+                $(this.levelLinksContainer).append(
+                    "<a href='javascript:void(0)' data-level='" + i + "' id='level-" + i + "'>" + i + "</a>"
+                );
+            var self = this;
+            // links click
+            $(this.levelLinksContainer).delegate('a', 'click', function (e) {
+                //if ($(this).hasClass(testLinInactive)) return false;
+                self.setLevel($(this).attr('data-level'));
+                $('body').attr('id', '');
+            });
+        },
+        /**
+         * Get an array of images you have to remember
+         * @returns {Array.<T>}
+         */
+        getImagesToRemember : function () {
+            this.shuffle(this.images);
+            return this.images.slice(0, this.imagesToRemember);
+        },
+        /**
+         * Display all image items we have and test start! :3
+         */
+        getAllImages : function () {
+            $(this.imagesOutContainer).html("");
+            this.shuffle(this.images);
+            var self = this;
+            this.images.forEach(function (item) {
+                $(self.imagesOutContainer).append(
+                    "<img src = '" + item.item + "' data-id='" + item.id + "'>"
+                );
+            });
+            var count = this.rememberArray.length;
+            console.log(count);
+            $(self.imagesOutContainer).undelegate('img', 'click');
+            $(self.imagesOutContainer).delegate('img', 'click', function() {
+                if (self.rememberArray.indexOf(self.toInt($(this).attr('data-id'), 0)) != -1) {
+                    if ($(this).hasClass('check')) return false;
+
+                    $(this).addClass('check');
+                    self.sound('check');
+                    --count;
+                    console.log(count);
+
+                    if (count == 0) {
+                        self.modal
+                            .setBlockBackground(successBackgroundColor)
+                            .setText(self.getRandomText(self.successText))
+                            .popup()
+                            .closeAfter(waitTime);
+                        self.redirect($(self.rememberContainer).parent(),  waitTime);
+                        self.sound('success_message');
+                        self.waitForAndRedirect(waitTime, 'next');
+                    }
+                } else {
+                    if ($(this).hasClass('uncheck')) return false;
+
+                    $(this).addClass('uncheck');
+                    //self.sound('fail');
+                    self.sound('fail_message');
+                    self.modal
+                        .setBlockBackground(failBackgroundColor)
+                        .setText(self.getRandomText(self.failText))
+                        .popup()
+                        .closeAfter( waitTime);
+                    self.redirect($(self.levelLinksContainer).parent(),  waitTime);
+                    self.waitForAndRedirect( waitTime);
+                }
+            });
+        },
+
+        /**
+         * Redirect to other block
+         * @param url
+         * @param time
+         */
+        redirect : function (url, time) {
+            time = time || 0;
+            var self = this;
+            $(self.currentPage).delay(time).slideUp('fast', function () {
+                $(url).slideDown('fast');
+                self.currentPage = $(url);
+            });
+        },
+
+        /**
+         *
+         * @param  time
+         * @param where
+         */
+        waitForAndRedirect : function (time, where) {
+            where = where || 'home';
+            var iter  = -1;
+            var self = this;
+            var close = function () {
+                if (iter == ( time / 1000)) {
+                    switch (where) {
+                        case 'next' :
+                            self.nextLevel();
+                        break;
+                        default :
+                            self.levelLinksGenerate();
+                        break;
+                        clearTimeout(close);
+                        iter = 0;
+                    }
+                } else {
+                    iter++;
+                    setTimeout(close, 1000);
+                }
+            };
+            if (iter != 0) {
+                iter = 0;
+                close();
+            }
+        },
+
+        /**
+         * When smth happened in app we add a sound
+         */
+        sound : function (name) {
+            var snd = new Howl({
+                urls : ['audio/' + name +'.wav'],
+                volume : volume
+            });
+            snd.play();
         }
     };
     // extends from Helper class
