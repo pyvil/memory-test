@@ -285,10 +285,13 @@
             $(this.imagesOutContainer).html("");
             this.shuffle(this.images);
             var self = this;
+            var i = 1;
             this.images.forEach(function (item) {
+                var _class = ((i % 7 == 0) || (i % 7 == 1)) ? '' : 'all-img-position';
                 $(self.imagesOutContainer).append(
-                    "<img src = '" + item.item + "' data-id='" + item.id + "'>"
+                    "<img src = '" + item.item + "' data-id='" + item.id + "' class = '" + _class + "'>"
                 );
+                i++;
             });
             var count = this.rememberArray.length;
             console.log(count);
@@ -303,13 +306,13 @@
                     console.log(count);
 
                     if (count == 0) {
+                        self.sound('success_message');
                         self.modal
                             .setBlockBackground(successBackgroundColor)
                             .setText(self.getRandomText(self.successText))
                             .popup()
                             .closeAfter(waitTime);
                         self.redirect($(self.rememberContainer).parent(),  waitTime);
-                        self.sound('success_message');
                         self.waitForAndRedirect(waitTime, 'next');
                     }
                 } else {
@@ -317,14 +320,15 @@
 
                     $(this).addClass('uncheck');
                     //self.sound('fail');
+                    self.sound('fail');
                     self.sound('fail_message');
                     self.modal
                         .setBlockBackground(failBackgroundColor)
                         .setText(self.getRandomText(self.failText))
                         .popup()
-                        .closeAfter( waitTime);
-                    self.redirect($(self.levelLinksContainer).parent(),  waitTime);
-                    self.waitForAndRedirect( waitTime);
+                        .closeAfter(waitTime);
+                    self.redirect($(self.levelLinksContainer).parent(), waitTime);
+                    self.waitForAndRedirect(waitTime, 'home');
                 }
             });
         },
@@ -338,6 +342,9 @@
             time = time || 0;
             var self = this;
             $(self.currentPage).delay(time).slideUp('fast', function () {
+                if ( $(url).attr('id') == $(self.rememberContainer).parent().attr('id') ) {
+                    self.center_overlay_modal({obj : $(url)})
+                }
                 $(url).slideDown('fast');
                 self.currentPage = $(url);
             });
@@ -380,7 +387,7 @@
          */
         sound : function (name) {
             var snd = new Howl({
-                urls : ['audio/' + name +'.wav'],
+                urls : ['audio/' + name +'.wav', 'audio/' + name +'.ogg'],
                 volume : volume
             });
             snd.play();
