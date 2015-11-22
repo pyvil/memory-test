@@ -144,16 +144,16 @@
              * @type {{1: string, 2: string, 3: string, 4: string, 5: string, 6: string, 7: string, 8: string, 9: string, 10: string}}
              */
             this.imagesLevelSize = {
-                1 : '288x288',
-                2 : '270x270',
-                3 : '245x245',
-                4 : '220x220',
-                5 : '220x220',
-                6 : '220x220',
-                7 : '205x205',
-                8 : '190x190',
-                9 : '185x185',
-                10 : '165x165'
+                1 : '260x260',
+                2 : '250x250',
+                3 : '210x210',
+                4 : '210x210',
+                5 : '210x210',
+                6 : '210x210',
+                7 : '180x180',
+                8 : '150x150',
+                9 : '190x190',
+                10 : '130x130'
             };
 
             /**
@@ -243,9 +243,10 @@
             $(this.rememberContainer).html("");
             var self = this;
             var size = this.imagesLevelSize[this.getLevel()].split('x');
+            var id = 'obs-' + this.getLevel();
             imgs.forEach(function (item) {
                 $(self.rememberContainer).append (
-                    "<img src = '" + item.item + "' data-id='" + item.id + "' style='width: " + size[0] + "px; height: " + size[1] + "px;'>"
+                    "<img src = '" + item.item + "' data-id='" + item.id + "' style='width: " + size[0] + "px; height: " + size[1] + "px;' id = '" + id + "'>"
                 );
                 // push `id`s of elements user have to remember
                 self.rememberArray.push(item.id);
@@ -295,7 +296,7 @@
             var self = this;
             var i = 1;
             this.images.forEach(function (item) {
-                var _class = ((i % 7 == 0) || (i % 7 == 1)) ? '' : 'all-img-position';
+                var _class = '';// ((i % 7 == 0) || (i % 7 == 1)) ? '' : 'all-img-position';
                 $(self.imagesOutContainer).append(
                     "<img src = '" + item.item + "' data-id='" + item.id + "' class = '" + _class + "'>"
                 );
@@ -350,11 +351,12 @@
             time = time || 0;
             var self = this;
             $(self.currentPage).delay(time).slideUp('fast', function () {
-                if ( $(url).attr('id') == $(self.rememberContainer).parent().attr('id') ) {
-                    self.center_overlay_modal({obj : $(url)})
-                }
-                $(url).slideDown('fast');
-                self.currentPage = $(url);
+                $(url).slideDown('fast', function (e) {
+                    if ( $(url).attr('id') == $(self.rememberContainer).parent().attr('id') ) {
+                        self.center_overlay_modal({obj : $(url)})
+                    }
+                    self.currentPage = $(url);
+                });
             });
         },
 
