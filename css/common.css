@@ -34,6 +34,7 @@ body#levels{
     background: url(../img/back_levels.png) #fff no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    height: 100%;
 }
 
 body#images{
