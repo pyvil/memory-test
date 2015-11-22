@@ -49,7 +49,7 @@ div::after {
 }
 
 .container{
-    max-width: 1200px;
+    max-width: 1800px;
     width: 100%;
     padding: 10px;
     margin: 0 auto;
@@ -80,20 +80,42 @@ p.allItems {
     height: 100%;
 }
 
+#pyvil_remember_container {
+    position: absolute;
+}
+
 #pyvil_remember_container, #pyvil_images_container{
     text-align: center;
     display: none;
     margin: 0 auto;
 }
 
+#pyvil_images_container {
+    padding-top: 50px;
+}
+
 #pyvil_images_container img{
     width: 165px;
-    /*margin: 10px 55px;*/
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+#pyvil_images_container img:nth-child(7n + 1) {
+    margin-right: 40px;
+}
+
+#pyvil_images_container img:first-child, #pyvil_images_container img:nth-child(1n + 7) {
+    margin-left: 40px;
+}
+
+.all-img-position {
+    margin-right : 40px;
+    margin-left : 40px;
 }
 
 #pyvil_remember_container img{
     /*margin: 17px 8px;*/
-    width: 210px;
+    /*width: 210px;*/
 }
 
 #pyvil_remember_container img, #pyvil_images_container img {
@@ -312,12 +334,5 @@ p.allItems {
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) and (max-width: 1367px) {
-
-}
-
-@media only screen and (min-width : 1368px) {
-    .container {
-        max-width: 100%;
-    }
 
 }
