@@ -161,6 +161,13 @@
              * @type {XML|*}
              */
             this.currentPage = $(this.levelLinksContainer).parent();
+
+            var self = this;
+            $(window).resize(function () {
+                self.center_overlay_modal({obj : $(self.levelLinksContainer).parent()});
+                /*top: 189px;
+                left: 4px;*/
+            });
         },
 
         /**
@@ -263,8 +270,9 @@
                     "<a href='javascript:void(0)' data-level='" + i + "' id='level-" + i + "'>" + i + "</a>"
                 );
             var self = this;
+            self.center_overlay_modal({obj : $(self.levelLinksContainer).parent()});
             // links click
-            $(this.levelLinksContainer).delegate('a', 'click', function (e) {
+            $(self.levelLinksContainer).delegate('a', 'click', function (e) {
                 //if ($(this).hasClass(testLinInactive)) return false;
                 self.setLevel($(this).attr('data-level'));
                 $('body').attr('id', '');
