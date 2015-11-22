@@ -37,8 +37,8 @@ body#levels{
 }
 
 body#images{
-    background: url(../img/back_all.png) #fff no-repeat;
-    background-size: cover;
+    background: url(../img/back_all.svg) #fff right no-repeat;
+    background-size: contain;
     background-attachment: fixed;
 }
 
@@ -71,8 +71,9 @@ p.allItems {
 
 #pyvil_level_container  {
     width: 70%;
-    position: relative;
-    margin-top: 13%;
+    max-width: 1300px;
+    position: absolute;
+    /*margin-top: 13%;*/
 }
 
 #pyvil_images_container {
@@ -130,6 +131,7 @@ p.allItems {
 .level_list_bg{
     width: 100%;
     max-width: 1300px;
+    position: relative;
 }
 
 .level_list_bg img{
@@ -143,7 +145,7 @@ p.allItems {
 
 .pyvil_level_list a{
     font-family: 'Cubano-Regular';
-    font-size: 100%;
+    font-size: 5.6vw;
     padding: 10px;
     border-radius: 50%;
     color: #000;
@@ -158,81 +160,69 @@ p.allItems {
 #level-1{
     /*top: 10px;*/
     left: 4%;
-    
-    
+
+
     margin-top: 2%;
 }
 
 #level-2{
     /* top: 135px; */
-    margin-top: 16%;
-    left: 13%;
+    margin-top: 19%;
+    left: 15%;
 }
 
 #level-3{
-    left: 20%;
+    left: 24%;
     margin-top: 5%;
     /* top: 20px; */
-    
-    
-    font-size: 50px;
+    font-size: 4.9vw;
 }
 
 #level-4{
-    
-    
-    left: 28%;
+    left: 34%;
+    margin-top: 17%;
     /* top: 115px; */
-    margin-top: 14%;
 }
 
 #level-5{
-    
-    
-    margin-top: 17%;
-    left: 41%;
+    margin-top: 20.5%;
+    left: 50%;
     /* top: 148px; */
-    font-size: 50px;
+    font-size: 4.9vw;
 }
 
 #level-6{
-    
-    
-    left: 51%;
-    margin-top: 9%;
+    left: 62%;
+    margin-top: 10%;
     /* top: 61px; */
     font-size: 50px;
 }
 
 #level-7{
-    left: 63%;
+    left: 77%;
     margin-top: 6%;
     /* top: 33px; */
     font-size: 50px;
 }
 
 #level-8{
-    left: 67%;
-    margin-top: 16%;
+    left: 81.5%;
+    margin-top: 18.5%;
     /* top: 131px; */
     font-size: 43px;
 }
 
 #level-9{
-    
-    
-    left: 75%;
-    margin-top: 19%;
+    left: 92%;
+    margin-top: 22.5%;
     /* top: 161px; */
     font-size: 43px;
 }
 
 #level-10{
-    
-    
-    left: 75%;
-    margin-top: 28%;
-    /*top: 265px;*/
+    left: 91.7%;
+    margin-top: 35.5%;
+    /* top: 265px; */
     font-size: 30px;
 }
 
@@ -317,6 +307,21 @@ p.allItems {
     }
 }
 
+@media only screen and (max-width: 1020px) {
+    #pyvil_images_container img:nth-child(7n + 1) {
+        margin-right: 0px;
+    }
+
+    #pyvil_images_container img:first-child, #pyvil_images_container img:nth-child(1n + 7) {
+        margin-left: 0px;
+    }
+
+    .all-img-position {
+        margin-right : 0px;
+        margin-left : 0px;
+    }
+}
+
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) and (max-width: 767px) {
 
@@ -333,6 +338,10 @@ p.allItems {
 }
 
 /* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) and (max-width: 1367px) {
-
+@media only screen and (min-width : 1200px) /*and (max-width: 1367px)*/ {
+    body#levels {
+        -ms-transform: scale(1,1); /* IE 9 */
+        -webkit-transform: scale(1,1); /* Safari */
+        transform: scale(1,1); /* Standard syntax */
+    }
 }
