@@ -145,7 +145,7 @@ p.allItems {
 
 .pyvil_level_list a{
     font-family: 'Cubano-Regular';
-    font-size: 5.6vw;
+    font-size: 5.6vmin;
     padding: 10px;
     border-radius: 50%;
     color: #000;
@@ -175,7 +175,7 @@ p.allItems {
     left: 24%;
     margin-top: 5%;
     /* top: 20px; */
-    font-size: 4.9vw;
+    font-size: 4.9vmin;
 }
 
 #level-4{
@@ -188,42 +188,42 @@ p.allItems {
     margin-top: 20.5%;
     left: 50%;
     /* top: 148px; */
-    font-size: 4.9vw;
+    font-size: 4.9vmin;
 }
 
 #level-6{
     left: 62%;
     margin-top: 10%;
     /* top: 61px; */
-    font-size: 50px;
+    font-size: 4.9vmin;
 }
 
 #level-7{
     left: 77%;
     margin-top: 6%;
     /* top: 33px; */
-    font-size: 50px;
+    font-size: 4.9vmin;
 }
 
 #level-8{
     left: 81.5%;
     margin-top: 18.5%;
     /* top: 131px; */
-    font-size: 43px;
+    font-size: 4.3vmin;
 }
 
 #level-9{
     left: 92%;
     margin-top: 22.5%;
     /* top: 161px; */
-    font-size: 43px;
+    font-size: 4.3vmin;
 }
 
 #level-10{
     left: 91.7%;
     margin-top: 35.5%;
     /* top: 265px; */
-    font-size: 30px;
+    font-size: 3vmin;
 }
 
 .lol-button{
