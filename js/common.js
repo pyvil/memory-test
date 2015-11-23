@@ -149,11 +149,11 @@
                 3 : '210x210',
                 4 : '210x210',
                 5 : '210x210',
-                6 : '210x210',
-                7 : '180x180',
+                6 : '190x190',
+                7 : '165x165',
                 8 : '150x150',
                 9 : '190x190',
-                10 : '130x130'
+                10 : '120x120'
             };
 
             /**
@@ -315,6 +315,7 @@
                     console.log(count);
 
                     if (count == 0) {
+                        self.wait(5000);
                         self.sound('success_message');
                         self.modal
                             .setBlockBackground(successBackgroundColor)
@@ -328,8 +329,8 @@
                     if ($(this).hasClass('uncheck')) return false;
 
                     $(this).addClass('uncheck');
-                    //self.sound('fail');
                     self.sound('fail');
+                    self.wait(5000);
                     self.sound('fail_message');
                     self.modal
                         .setBlockBackground(failBackgroundColor)
@@ -390,6 +391,23 @@
                 iter = 0;
                 close();
             }
+        },
+
+        /***
+         *
+         * @param time
+         */
+        wait : function (time) {
+            var iter = 1;
+            var close = function () {
+                if (iter == ( time / 1000)) {
+                    clearTimeout(close);
+                } else {
+                    iter++;
+                    setTimeout(close, 1000);
+                }
+            };
+            close();
         },
 
         /**

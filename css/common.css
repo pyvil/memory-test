@@ -32,6 +32,9 @@ body {
 
 body#levels{
     background: url(../img/back_levels.png) #fff no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
     background-attachment: fixed;
     height: 100%;
@@ -39,8 +42,12 @@ body#levels{
 
 body#images{
     background: url(../img/back_all.svg) #fff right bottom no-repeat;
-    background-size: contain;
     background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
 }
 
 div::after {
@@ -57,7 +64,6 @@ div::after {
 }
 
 p.lead {
-    font-size: 100%;
     text-align: center;
     color: #000;
 }
@@ -99,10 +105,10 @@ p.allItems {
 }
 
 #pyvil_images_container img{
-    width: 140px;
+    width: 165px;
     /*margin-top: 7px;
     margin-bottom: 7px;*/
-    margin: 7px 15px;
+    margin: 7px 5px;
 }
 
 #pyvil_remember_container img{
@@ -302,9 +308,7 @@ p.allItems {
 
 /* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) and (max-width: 620px) {
-    .popup{
-        height: 60%;
-    }
+
 }
 
 @media only screen and (max-width: 1020px) {
@@ -323,13 +327,27 @@ p.allItems {
 }
 
 /* Extra Small Devices, Phones */
-@media only screen and (min-width : 480px) and (max-width: 767px) {
+@media only screen and (min-width : 320px) and (max-width: 767px) {
+    #pyvil_images_container img{
+        width: 165px;
+        /*margin-top: 7px;
+        margin-bottom: 7px;*/
+        margin: 7px 0px;
+    }
 
+    .popup span {
+        font-size: 5vmin;
+    }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) and (max-width: 991px) {
-
+    #pyvil_images_container img{
+        width: 165px;
+        /*margin-top: 7px;
+        margin-bottom: 7px;*/
+        margin: 7px 0px;
+    }
 }
 
 /* Medium Devices, Desktops */
