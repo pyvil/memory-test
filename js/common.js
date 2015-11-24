@@ -132,12 +132,18 @@
                 'don\'t get<br>upset about it!',
                 'next time<br>lucky',
                 'pull yourself<br>together<br>and try again',
-                'believe in yourself!<br>try again',
+                'believe in<br>yourself!<br>try again',
                 'better luck<br>next time',
                 'don\'t give up<br>and<br>chase your dream',
                 'cheer up!',
                 'don\'t give up<br>so soon<br>try again'
             ];
+
+            /**
+             * Text display when user successfully finish 10-th level
+             * @type {string}
+             */
+            this.coolText = 'you\'re on<br>target!<br>your memory<br>is perfect!';
 
             /**
              *
@@ -254,6 +260,7 @@
             self.redirect($(self.rememberContainer).parent());
             $('.start-test').bind('click', function () {
                 self.getAllImages();
+                self.sound('click');
                 self.redirect($(self.imagesOutContainer).parent());
                 $('body').attr('id', 'images');
             });
@@ -274,7 +281,7 @@
             self.center_overlay_modal({obj : $(self.levelLinksContainer).parent()});
             // links click
             $(self.levelLinksContainer).delegate('a', 'click', function (e) {
-                //if ($(this).hasClass(testLinInactive)) return false;
+                self.sound('click');
                 self.setLevel($(this).attr('data-level'));
                 $('body').attr('id', '');
             });
@@ -302,7 +309,8 @@
                 );
                 i++;
             });
-            var count = this.rememberArray.length;
+            var count = this.rememberArray.length,
+                id    = 0;
             console.log(count);
             $(self.imagesOutContainer).undelegate('img', 'click');
             $(self.imagesOutContainer).delegate('img', 'click', function() {
@@ -315,11 +323,11 @@
                     console.log(count);
 
                     if (count == 0) {
-                        self.wait(5000);
-                        self.sound('success_message');
+                        id = setTimeout(function () {self.sound('success_message');}, 1500);
+                        var text = self.getLevel() == 10 ? self.coolText : self.successText;
                         self.modal
                             .setBlockBackground(successBackgroundColor)
-                            .setText(self.getRandomText(self.successText))
+                            .setText(self.getRandomText(text))
                             .popup()
                             .closeAfter(waitTime);
                         self.redirect($(self.rememberContainer).parent(),  waitTime);
@@ -330,8 +338,7 @@
 
                     $(this).addClass('uncheck');
                     self.sound('fail');
-                    self.wait(5000);
-                    self.sound('fail_message');
+                    id = setTimeout(function () {self.sound('fail_message');}, 1500);
                     self.modal
                         .setBlockBackground(failBackgroundColor)
                         .setText(self.getRandomText(self.failText))
@@ -368,46 +375,16 @@
          */
         waitForAndRedirect : function (time, where) {
             where = where || 'home';
-            var iter  = -1;
+            var id = 0;
             var self = this;
-            var close = function () {
-                if (iter == ( time / 1000)) {
-                    switch (where) {
-                        case 'next' :
-                            self.nextLevel();
-                        break;
-                        default :
-                            self.levelLinksGenerate();
-                        break;
-                        clearTimeout(close);
-                        iter = 0;
-                    }
-                } else {
-                    iter++;
-                    setTimeout(close, 1000);
-                }
-            };
-            if (iter != 0) {
-                iter = 0;
-                close();
+            switch (where) {
+                case 'next' :
+                    id = setTimeout(function() {self.nextLevel();}, time);
+                    break;
+                default :
+                    id = setTimeout(function() {self.levelLinksGenerate();}, time);
+                    break;
             }
-        },
-
-        /***
-         *
-         * @param time
-         */
-        wait : function (time) {
-            var iter = 1;
-            var close = function () {
-                if (iter == ( time / 1000)) {
-                    clearTimeout(close);
-                } else {
-                    iter++;
-                    setTimeout(close, 1000);
-                }
-            };
-            close();
         },
 
         /**
