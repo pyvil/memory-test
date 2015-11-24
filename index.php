@@ -50,6 +50,7 @@
         <div class="pyvil_images_list container"></div>
     </div>
     <div class="shadow-screen" style="display: none;"></div>
-    <div class="screen"><img src="img/hand.svg" alt=""></div>
+    <div class="screen"><img src="img/main.gif" alt=""></div>
+    <!--Made with love and javascript-->
 </body>
 </html>
