@@ -31,13 +31,30 @@ body {
 }
 
 body#levels{
-    background: url(../img/back_levels.png) #fff no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-attachment: fixed;
+    background: #fff;
     height: 100%;
+}
+
+body#levels > .levels_background {
+    display: block;
+}
+
+.levels_background {
+    width: 100%;
+    height: 100%;
+    z-index: -9999;
+    position: relative;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.levels_background img {
+    height: 100%;
+    position: absolute;
+    z-index: -1500;
+    right: 0;
+    bottom: 0;
 }
 
 body#images{
@@ -82,6 +99,8 @@ p.allItems {
     max-width: 1300px;
     position: absolute;
     /*margin-top: 13%;*/
+    left: 2%;
+    top: 20%;
 }
 
 #pyvil_images_container {
@@ -142,11 +161,11 @@ p.allItems {
 
 .pyvil_level_list a{
     font-family: 'Cubano-Regular';
-    font-size: 5.6vmin;
-    padding: 10px;
+    font-size: 7.5vmin;
+    /*padding: 10px;*/
     border-radius: 50%;
     color: #000;
-    margin: 10px;
+    /*margin: 10px;*/
     z-index: 2000;
     position: absolute;
     /*vertical-align: middle;
@@ -156,69 +175,67 @@ p.allItems {
 
 #level-1{
     /*top: 10px;*/
-    left: 4%;
-
-
-    margin-top: 2%;
+    left: 7.499999%;
+    margin-top: 3.99999%;
 }
 
 #level-2{
     /* top: 135px; */
-    margin-top: 19%;
-    left: 15%;
+    margin-top: 19.99999%;
+    left: 16.9999%;
 }
 
 #level-3{
-    left: 24%;
-    margin-top: 5%;
+    left: 26.69999%;
+    margin-top: 6.499999%;
     /* top: 20px; */
-    font-size: 4.9vmin;
+    font-size: 5.3vmin;
 }
 
 #level-4{
-    left: 34%;
-    margin-top: 17%;
+    left: 35.9999%;
+    margin-top: 17.99999%;
     /* top: 115px; */
 }
 
 #level-5{
-    margin-top: 20.5%;
-    left: 50%;
+    margin-top: 21.99999%;
+    left: 51.99999%;
     /* top: 148px; */
-    font-size: 4.9vmin;
+    font-size: 5.7vmin;
 }
 
 #level-6{
-    left: 62%;
-    margin-top: 10%;
-    /* top: 61px; */
-    font-size: 4.9vmin;
+    margin-top: 11.499999%;
+    left: 64.499999%;
+    /* top: 148px; */
+    font-size: 5.7vmin;
 }
 
 #level-7{
-    left: 77%;
-    margin-top: 6%;
+    left: 79.299999%;
+    margin-top: 7.499999%;
     /* top: 33px; */
-    font-size: 4.9vmin;
+    font-size: 6vmin;
 }
 
 #level-8{
-    left: 81.5%;
-    margin-top: 18.5%;
+    left: 83.9999%;
+    margin-top: 20.29999%;
     /* top: 131px; */
     font-size: 4.3vmin;
 }
 
 #level-9{
-    left: 92%;
-    margin-top: 22.5%;
+    left: 94.499999%;
+    margin-top: 23.99999%;
     /* top: 161px; */
     font-size: 4.3vmin;
 }
 
 #level-10{
-    left: 91.7%;
-    margin-top: 35.5%;
+    left: 94.299999%;
+    margin-top: 36.79999%;
     /* top: 265px; */
     font-size: 3vmin;
 }
