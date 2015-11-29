@@ -169,11 +169,9 @@
             this.currentPage = $(this.levelLinksContainer).parent();
 
             var self = this;
-            $(window).resize(function () {
+           /* $(window).resize(function () {
                 self.center_overlay_modal({obj : $(self.levelLinksContainer).parent()});
-                /*top: 189px;
-                left: 4px;*/
-            });
+            });*/
         },
 
         /**
@@ -258,6 +256,7 @@
                 self.rememberArray.push(item.id);
             });
             self.redirect($(self.rememberContainer).parent());
+            $('.start-test').unbind();
             $('.start-test').bind('click', function () {
                 self.getAllImages();
                 self.sound('click');
@@ -278,8 +277,9 @@
                     "<a href='javascript:void(0)' data-level='" + i + "' id='level-" + i + "'>" + i + "</a>"
                 );
             var self = this;
-            self.center_overlay_modal({obj : $(self.levelLinksContainer).parent()});
+            //self.center_overlay_modal({obj : $(self.levelLinksContainer).parent()});
             // links click
+            $(self.levelLinksContainer).undelegate();
             $(self.levelLinksContainer).delegate('a', 'click', function (e) {
                 self.sound('click');
                 self.setLevel($(this).attr('data-level'));
@@ -311,7 +311,6 @@
             });
             var count = this.rememberArray.length,
                 id    = 0;
-            console.log(count);
             $(self.imagesOutContainer).undelegate('img', 'click');
             $(self.imagesOutContainer).delegate('img', 'click', function() {
                 if (self.rememberArray.indexOf(self.toInt($(this).attr('data-id'), 0)) != -1) {
@@ -323,22 +322,27 @@
                     console.log(count);
 
                     if (count == 0) {
-                        id = setTimeout(function () {self.sound('success_message');}, 1500);
-                        var text = self.getLevel() == 10 ? self.coolText : self.successText;
+                        id = setTimeout(function () {self.sound('success_message');}, 100);
+                        var text = self.getLevel() == 10 ? self.coolText : self.getRandomText(self.successText);
                         self.modal
                             .setBlockBackground(successBackgroundColor)
-                            .setText(self.getRandomText(text))
+                            .setText(text)
                             .popup()
                             .closeAfter(waitTime);
-                        self.redirect($(self.rememberContainer).parent(),  waitTime);
-                        self.waitForAndRedirect(waitTime, 'next');
+                        if (self.getLevel() == 10) {
+                            self.redirect($(self.levelLinksContainer).parent(), waitTime);
+                            self.waitForAndRedirect(waitTime, 'home');
+                        } else {
+                            self.redirect($(self.rememberContainer).parent(),  waitTime);
+                            self.waitForAndRedirect(waitTime, 'next');
+                        }
                     }
                 } else {
                     if ($(this).hasClass('uncheck')) return false;
 
                     $(this).addClass('uncheck');
                     self.sound('fail');
-                    id = setTimeout(function () {self.sound('fail_message');}, 1500);
+                    id = setTimeout(function () {self.sound('fail_message');}, 400);
                     self.modal
                         .setBlockBackground(failBackgroundColor)
                         .setText(self.getRandomText(self.failText))
