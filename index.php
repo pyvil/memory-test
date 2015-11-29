@@ -34,6 +34,7 @@
     </script>
 </head>
 <body id="levels">
+<div class="levels_background"><img src="img/back_levels.png" alt=""></div>
     <div id="pyvil_level_container">
         <div class="pyvil_level_list"></div>
         <div class="level_list_bg">
