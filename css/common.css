@@ -327,11 +327,6 @@ p.allItems {
     width: 100%;
 }
 
-/* Custom, iPhone Retina */
-@media only screen and (min-width : 320px) and (max-width: 620px) {
-
-}
-
 @media only screen and (max-width: 1020px) {
     #pyvil_images_container img:nth-child(7n + 1) {
         margin-right: 0px;
@@ -363,9 +358,9 @@ p.allItems {
     }
 }
 
-@media (min-width:320px) and (max-width: 1023px) {
+@media only screen and (orientation: portrait) and (min-width:320px) and (max-width: 1023px) {
     .level_list_bg img {
-        content: url("../img/levels-vertical-02.svg");
+        content: url("../img/levels-vertical.png");
     }
 
     body#levels > .levels_background img {
@@ -373,11 +368,10 @@ p.allItems {
     }
 
     #pyvil_level_container {
-        height: 77%;
-        width: 100%;
+        width: 50%;
         position: absolute;
-        top: 0;
-        left: 0%;
+        top: 45px;
+        left: 18%;
     }
 
     .level_list_bg{
@@ -397,67 +391,67 @@ p.allItems {
 
     #level-1 {
         /* top: 10px; */
-        left: 62.99999%;
-        margin-top: 10.599999%;
+        left: 76.99999%;
+        margin-top: 8.499999%;
     }
 
     #level-2 {
         /* top: 135px; */
-        margin-top: 18%;
-        left: 46.9999%;
+        margin-top: 31%;
+        left: 40.9999%;
     }
 
     #level-3 {
-        left: 59.5%;
-        margin-top: 30%;
+        left: 73.5%;
+        margin-top: 56%;
         /* top: 20px; */
         font-size: 53px;
     }
 
     #level-4 {
-        left: 45.5%;
-        margin-top: 35.99999%;
+        left: 41.5%;
+        margin-top: 72.99999%;
         /* top: 115px; */
     }
 
     #level-5 {
-        margin-top: 50.99999%;
-        left: 41.7%;
+        margin-top: 110.99999%;
+        left: 36.7%;
         /* top: 148px; */
-        font-size: 57px
+        font-size: 57px;
     }
 
     #level-6 {
-        margin-top: 63.499999%;
-        left: 49.499999%;
+        margin-top: 138.499999%;
+        left: 59.499999%;
         /* top: 148px; */
         font-size: 57px;
     }
 
     #level-7 {
-        left: 51.299999%;
-        margin-top: 77%;
+        left: 67.299999%;
+        margin-top: 171%;
         /* top: 33px; */
         font-size: 60px;
     }
 
     #level-8 {
-        left: 39.9999%;
-        margin-top: 80.59999%;
+        left: 40.9999%;
+        margin-top: 181.9999%;
         /* top: 131px; */
         font-size: 43px;
     }
 
     #level-9 {
-        left: 35.499999%;
-        margin-top: 89.69999%;
+        left: 32.499999%;
+        margin-top: 204.9999%;
         /* top: 161px; */
         font-size: 43px;
     }
 
     #level-10 {
-        left: 24%;
-        margin-top: 88.79999%;
+        left: 5%;
+        margin-top: 205.9999%;
         /* top: 265px; */
         font-size: 30px;
     }

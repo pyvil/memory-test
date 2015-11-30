@@ -167,11 +167,6 @@
              * @type {XML|*}
              */
             this.currentPage = $(this.levelLinksContainer).parent();
-
-            var self = this;
-           /* $(window).resize(function () {
-                self.center_overlay_modal({obj : $(self.levelLinksContainer).parent()});
-            });*/
         },
 
         /**
