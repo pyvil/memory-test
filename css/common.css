@@ -351,8 +351,6 @@ p.allItems {
 @media only screen and (min-width : 320px) and (max-width: 767px) {
     #pyvil_images_container img{
         width: 165px;
-        /*margin-top: 7px;
-        margin-bottom: 7px;*/
         margin: 7px 0px;
     }
 }
@@ -361,22 +359,106 @@ p.allItems {
 @media only screen and (min-width : 768px) and (max-width: 991px) {
     #pyvil_images_container img{
         width: 165px;
-        /*margin-top: 7px;
-        margin-bottom: 7px;*/
         margin: 7px 0px;
     }
 }
 
-/* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) and (max-width: 1199px) {
+@media (min-width:320px) and (max-width: 1023px) {
+    .level_list_bg img {
+        content: url("../img/levels-vertical-02.svg");
+    }
 
-}
+    body#levels > .levels_background img {
+        content: url("../img/background-vertical-01.svg");
+    }
 
-/* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) /*and (max-width: 1367px)*/ {
-    body#levels {
-        -ms-transform: scale(1,1); /* IE 9 */
-        -webkit-transform: scale(1,1); /* Safari */
-        transform: scale(1,1); /* Standard syntax */
+    #pyvil_level_container {
+        height: 77%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0%;
+    }
+
+    .level_list_bg{
+        /*width: 100%;*/
+        height: 100%;
+        position: relative;
+    }
+
+    .level_list_bg img {
+        height: 100%;
+
+    }
+
+    .pyvil_level_list a {
+        font-size: 75px;
+    }
+
+    #level-1 {
+        /* top: 10px; */
+        left: 62.99999%;
+        margin-top: 10.599999%;
+    }
+
+    #level-2 {
+        /* top: 135px; */
+        margin-top: 18%;
+        left: 46.9999%;
+    }
+
+    #level-3 {
+        left: 59.5%;
+        margin-top: 30%;
+        /* top: 20px; */
+        font-size: 53px;
+    }
+
+    #level-4 {
+        left: 45.5%;
+        margin-top: 35.99999%;
+        /* top: 115px; */
+    }
+
+    #level-5 {
+        margin-top: 50.99999%;
+        left: 41.7%;
+        /* top: 148px; */
+        font-size: 57px
+    }
+
+    #level-6 {
+        margin-top: 63.499999%;
+        left: 49.499999%;
+        /* top: 148px; */
+        font-size: 57px;
+    }
+
+    #level-7 {
+        left: 51.299999%;
+        margin-top: 77%;
+        /* top: 33px; */
+        font-size: 60px;
+    }
+
+    #level-8 {
+        left: 39.9999%;
+        margin-top: 80.59999%;
+        /* top: 131px; */
+        font-size: 43px;
+    }
+
+    #level-9 {
+        left: 35.499999%;
+        margin-top: 89.69999%;
+        /* top: 161px; */
+        font-size: 43px;
+    }
+
+    #level-10 {
+        left: 24%;
+        margin-top: 88.79999%;
+        /* top: 265px; */
+        font-size: 30px;
     }
 }
