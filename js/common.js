@@ -11,7 +11,7 @@
      * @type {number}
      */
     var
-        // volume sounds in app
+    // volume sounds in app
         volume                      = 0.8,
         waitTime                    = 2000,
         failBackgroundColor         = '#56caef',
@@ -114,14 +114,14 @@
              * @type {string[]}
              */
             this.successText = [
-                'the best!',
-                'good job!',
-                'it was a<br>success',
-                'you\'re right!',
                 'well done',
                 'this is your<br>moment',
                 'absolutely<br>correct',
-                'you got it<br>right'
+                'you got it<br>right',
+                'master!',
+                'you rock!',
+                'fantastic!',
+                'you\'re right!',
             ];
 
             /**
@@ -129,14 +129,14 @@
              * @type {string[]}
              */
             this.failText = [
-                'don\'t get<br>upset about it!',
-                'next time<br>lucky',
-                'pull yourself<br>together<br>and try again',
-                'believe in<br>yourself!<br>try again',
                 'better luck<br>next time',
                 'don\'t give up<br>and<br>chase your dream',
                 'cheer up!',
-                'don\'t give up<br>so soon<br>try again'
+                'don\'t give up<br>so soon<br>try again',
+                'try again,<br>baby!',
+                'free<br>your mind',
+                'stay cool,<br>do it again!',
+                'use<br>your mind!',
             ];
 
             /**
