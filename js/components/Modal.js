@@ -1,24 +1,16 @@
 /**
- * @category Model
- * @package Test_Model
+ * Creating modal
+ *
+ * @category Components
+ * @package Components_Modal
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  */
+var Modal = {
+    text :               null,
+    background :         null,
 
-/**
- *
- * @param param
- * @constructor
- */
-var Modal = function (param) {
-    this.start();
-};
-
-/**
- *
- * @type {{setText: Function, setBlockBackground: Function, popup: Function, closeAfter: Function, start: Function}}
- */
-Modal.prototype = {
-
+    defaultText :        'the best!',
+    defaultBackground :  '#7d77b7',
     /**
      * Set modal text
      * @param text
@@ -47,7 +39,7 @@ Modal.prototype = {
             "<div class='popup' style='background: " + this.background + "; display: none;'><span>" + this.text + "</span></div>"
             + "<div class='shadow' style='display: none;'></div>"
         );
-        this.center_overlay_modal({obj : '.popup'});
+        Helper.centerObject('.popup');
         $('.shadow').fadeIn('fast', function () {
             $('.popup').delay(100).fadeIn('slow');
         });
@@ -89,11 +81,19 @@ Modal.prototype = {
      * Testing defaults values
      */
     testDefaults : function () {
-        this.text = this.text == null ? 'the best!' : this.text;
-        this.background = this.background == null ? '#7d77b7' : this.background;
+        this.text = this.text == null ? this.defaultText : this.text;
+        this.background = this.background == null ? this.defaultBackground : this.background;
     }
 };
-// extends from Helper class
-$.extend(Modal.prototype, Helper.prototype);
-/** init Modal class in global scope */
-window.Modal = Modal || {};
+
+if (typeof define === 'function' && define.amd) {
+    define('modal', ['../tests/node_modules/jquery/dist/jquery', 'helper'], function() {
+        return Modal;
+    })
+}
+
+if(typeof module != 'undefined') {
+    module.exports = Modal;
+} else {
+    window.Modal = Modal;
+}

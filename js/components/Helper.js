@@ -1,11 +1,11 @@
 /**
- * @category Helper
- * @package Test_Helper
+ * Helper
+ *
+ * @category Components
+ * @package  Components_Helper
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
- * @type {{toInt: Function, toObj: Function}}
  */
-var Helper = function () {};
-Helper.prototype = {
+var Helper = {
     /**
      * Helper: convert variable to integer value
      * @param _var
@@ -23,11 +23,9 @@ Helper.prototype = {
      * @param _default
      */
     toObj : function (_var, _default) {
-        if (typeof _var == 'String') {
+        if (typeof _var == 'string') {
             if ($(_var)) return $(_var);
-            if ($('.' + _var)) return $('.' + _var);
-            if ($('#' + _var)) return $('#' + _var);
-        } else if (typeof _var == 'Object') {
+        } else if (typeof _var == 'object') {
             return $(_var);
         }
         return $(_default);
@@ -36,14 +34,15 @@ Helper.prototype = {
 
     /**
      * Put block in the center of the screen
-     * @param parameters
+     * @param obj
      */
-    center_overlay_modal : function(parameters){
-        var
-            cn              = parameters.obj;
+    centerObject : function(obj){
+        obj = this.toObj(obj, false);
 
-        $(cn).css("top", Math.max(0, (($(window).height() - $(cn).outerHeight()) / 2)) + "px");
-        $(cn).css("left", Math.max(0, (($(window).width() - $(cn).outerWidth()) / 2)) + "px");
+        if(obj == false) return null;
+
+        $(obj).css("top", Math.max(0, (($(window).height() - $(obj).outerHeight()) / 2)) + "px");
+        $(obj).css("left", Math.max(0, (($(window).width() - $(obj).outerWidth()) / 2)) + "px");
     },
 
     /**
@@ -56,3 +55,15 @@ Helper.prototype = {
         return check;
     }
 };
+
+if (typeof define === 'function' && define.amd) {
+    define('help', ['../tests/node_modules/jquery/dist/jquery'], function($) {
+        return Helper;
+    })
+}
+
+if(typeof module != 'undefined') {
+    module.exports = Helper;
+} else {
+    window.Helper = Helper;
+}
