@@ -8,33 +8,28 @@
 var Helper = {
     /**
      * Helper: convert variable to integer value
+     *
      * @param _var
+     *
      * @returns {number}
-     * @param _default
      */
-    toInt : function (_var, _default) {
-        return (_var == null || _var == 0)
-            ? _default : parseInt(_var, 10) ;
-    },
-    /**
-     * Helper: convert variable to Object value
-     * @param _var
-     * @returns {Object}
-     * @param _default
-     */
-    toObj : function (_var, _default) {
-        if (typeof _var == 'string') {
-            if ($(_var)) return $(_var);
-        } else if (typeof _var == 'object') {
-            return $(_var);
-        }
-        return $(_default);
-        //throw new Error("You pass a wrong parameter, please check parameters you pass!");
+    toInt : function (_var) {
+        if (_var === null || _var === undefined) return 0;
+        var data = _var;
+        var pattern = /\d+/g;
+
+        var match = data.match(pattern);
+
+        if (!match) return 0;
+        return parseInt(data, 10);
     },
 
     /**
      * Put block in the center of the screen
+     *
      * @param obj
+     *
+     * @return void
      */
     centerObject : function(obj){
         obj = this.toObj(obj, false);
