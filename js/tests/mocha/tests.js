@@ -3,18 +3,18 @@ var helper = require('../../components/Helper')
 
 describe('test', function(){
     it('should have `number` type', function() {
-        (typeof helper.toInt('123', false)).should.equal('number')
+        (typeof helper.toInt('123')).should.equal('number')
     })
 
     it('should return some number', function(){
-        helper.toInt('123', false).should.equal(123)
+        helper.toInt('123').should.equal(123)
     })
 
     it('should return number from string with symbols', function () {
-        console.log(helper.toInt('kk12[oikj2', false));
+        helper.toInt('kk12[oikj2').should.equal(122)
     })
 
-    it('should return default value when null given', function () {
-        helper.toInt(null, false).should.equal(false)
+    it('should return 0 when null given', function () {
+        helper.toInt(null).should.equal(0)
     })
 })
