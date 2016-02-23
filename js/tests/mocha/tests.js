@@ -14,7 +14,12 @@ describe('test', function(){
         helper.toInt('kk12[oikj2').should.equal(122)
     })
 
-    it('should return 0 when null given', function () {
+    it('should return 0 when null or undefined given', function () {
         helper.toInt(null).should.equal(0)
+        helper.toInt(undefined).should.equal(0)
+    })
+
+    it('should return 0 when string of symbols given', function () {
+        helper.toInt('lorem ipsum dolor').should.equal(0)
     })
 })
