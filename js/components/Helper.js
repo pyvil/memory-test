@@ -19,6 +19,7 @@ var Helper = {
         var pattern = /\d+/g;
 
         var match = data.match(pattern);
+        match = match.join('');
 
         if (!match) return 0;
         return parseInt(match, 10);
