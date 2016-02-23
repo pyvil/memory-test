@@ -12,12 +12,12 @@ For installed testing env was used *npm*
 
 Two test frameworks were used: jasmine and mocha (with mocha-jsdom)
 
-Install *jasmine*:
+<!--Install *jasmine*:
 ```
 sudo npm install -g jasmine
 ```
 
-To initialize *jasmine* simply write in the command line: **jasmine init**
+To initialize *jasmine* simply write in the command line: **jasmine init**-->
 
 Install *mocha* and *mocha-jsdom*:
 
@@ -37,12 +37,20 @@ npm install should
 
 To initialize *mocha* simply write in command line: **mocha init**
 
-To run *mocha* test run the command: 
+To run all *mocha-jsdom* tests run the command:
+ 
 ```
 npm test
 ```
 
+To run single *mocha* test use:
+
+```
+mocha test.js
+```
+
 If errors occurs run commands below:
+
 ```
 npm install chai
 npm install mocha-standard

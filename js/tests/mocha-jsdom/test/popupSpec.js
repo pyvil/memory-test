@@ -2,7 +2,7 @@ var jsdom = require('../index'),
     assert = require('assert'),
     should = require('should');
 
-describe('popup', function () {
+describe('test jquery capabilities', function () {
     var modal;
     jsdom()
 
@@ -12,8 +12,11 @@ describe('popup', function () {
         modal = require('../../../components/Modal');
     })
 
+    it('should be a jquery instance', function () {
+        ($('body') instanceof jQuery).should.equal(true);
+    })
+
     it('should add popup html into body tag', function () {
-        modal.popup();
-        assert.equal(true, $('body').find('div').hasClass('popup'));
+
     })
 })
