@@ -21,7 +21,7 @@ var Helper = {
         var match = data.match(pattern);
 
         if (!match) return 0;
-        return parseInt(data, 10);
+        return parseInt(match, 10);
     },
 
     /**
