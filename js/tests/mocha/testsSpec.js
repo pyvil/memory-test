@@ -1,7 +1,7 @@
 var should = require('should')
 var helper = require('../../components/Helper')
 
-describe('test', function(){
+describe('Helper.toInt tests', function(){
     it('should have `number` type', function() {
         (typeof helper.toInt('123')).should.equal('number')
     })
