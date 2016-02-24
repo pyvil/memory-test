@@ -19,8 +19,12 @@ describe('Modal capabilities', function () {
     it('should set text', function () {
         var text = 'holly sheet';
         modal.setText(text);
-        modal.text.should.be.equal(text)
+        modal.getText().should.be.equal(text)
     })
 
-
+    it('should not get a private variables', function () {
+        var text = 'text';
+        modal.setText(text);
+        String(modal.text).should.be.equal('undefined');
+    })
 })
