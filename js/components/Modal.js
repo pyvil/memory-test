@@ -5,36 +5,63 @@
  * @package Components_Modal
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  */
-var Modal = {
-    text :               null,
-    background :         null,
+var Modal = (function () {
+    var
+        text               = null,
+        background         = null,
 
-    defaultText :        'the best!',
-    defaultBackground :  '#7d77b7',
+        defaultText        = 'the best!',
+        defaultBackground  = '#7d77b7';
+
     /**
      * Set modal text
-     * @param text
+     *
+     * @param _text
      */
-    setText : function (text) {
-        this.text = text;
+    this.setText = function (_text) {
+        text = _text;
         return this;
-    },
+    };
 
     /**
-     * Set bakground of popup
+     * Set background of popup
+     *
      * @param color
      */
-    setBlockBackground : function(color) {
-        this.background = color;
+    this.setBackground = function(color) {
+        background = color;
         return this;
-    },
+    };
+
+    /**
+     * Get text value
+     *
+     * @returns {string}
+     */
+    this.getText = function() {return text;};
+
+    /**
+     * Get background value
+     *
+     * @returns {string}
+     */
+    this.getBackground = function() {return background;};
+
+    /**
+     * Two methods below are getters of default values of text and background
+     *
+     * @returns {string}
+     */
+    this.getDefaultText = function() {return defaultText;};
+    this.getDefaultBackground = function() {return defaultBackground;};
 
     /**
      * Add popup markup and show it
+     *
      * @returns {Modal}
      */
-    popup : function () {
-        this.testDefaults();
+    this.popup = function () {
+        testDefaults();
         $('body').append(
             "<div class='popup' style='background: " + this.background + "; display: none;'><span>" + this.text + "</span></div>"
             + "<div class='shadow' style='display: none;'></div>"
@@ -43,14 +70,14 @@ var Modal = {
         $('.shadow').fadeIn('fast', function () {
             $('.popup').delay(100).fadeIn('slow');
         });
-        return this;
-    },
+    };
 
     /**
      * Close popup after time in param
+     *
      * @param time
      */
-    closeAfter : function (time) {
+    var closeAfter = function (time) {
         var iterator = 0;
         var close = function () {
             if (iterator == (time / 1000)) {
@@ -67,24 +94,18 @@ var Modal = {
             }
         };
         close();
-    },
-
-    /**
-     * When start using add defaults if necessary
-     */
-    start : function () {
-        this.testDefaults();
-        //this.popup();
-    },
+    };
 
     /**
      * Testing defaults values
      */
-    testDefaults : function () {
-        this.text = this.text == null ? this.defaultText : this.text;
-        this.background = this.background == null ? this.defaultBackground : this.background;
-    }
-};
+    var testDefaults = function () {
+        text = text == null ? defaultText : text;
+        background = background == null ? defaultBackground : background;
+    };
+
+    return this;
+})();
 
 if (typeof define === 'function' && define.amd) {
     define('modal', ['../tests/node_modules/jquery/dist/jquery', 'helper'], function() {
