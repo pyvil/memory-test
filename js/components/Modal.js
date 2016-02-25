@@ -13,6 +13,12 @@ var Modal = (function () {
         defaultText        = 'the best!',
         defaultBackground  = '#7d77b7';
 
+    var popupTemplate =
+        "<div class='popup' style='background: " + this.getBackground() + "; display: none;'>" +
+            "<span>" + this.getText() + "</span>" +
+        "</div>" +
+        "<div class='shadow' style='display: none;'></div>";
+
     /**
      * Set modal text
      *
@@ -38,22 +44,14 @@ var Modal = (function () {
      *
      * @returns {string}
      */
-    this.getText = function() {return text;};
+    this.getText = function() {return text == null ? defaultText : text;};
 
     /**
      * Get background value
      *
      * @returns {string}
      */
-    this.getBackground = function() {return background;};
-
-    /**
-     * Two methods below are getters of default values of text and background
-     *
-     * @returns {string}
-     */
-    this.getDefaultText = function() {return defaultText;};
-    this.getDefaultBackground = function() {return defaultBackground;};
+    this.getBackground = function() {return background == null ? defaultBackground : background;};
 
     /**
      * Add popup markup and show it
@@ -61,10 +59,8 @@ var Modal = (function () {
      * @returns {Modal}
      */
     this.popup = function () {
-        testDefaults();
         $('body').append(
-            "<div class='popup' style='background: " + this.background + "; display: none;'><span>" + this.text + "</span></div>"
-            + "<div class='shadow' style='display: none;'></div>"
+            popupTemplate
         );
         Helper.centerObject('.popup');
         $('.shadow').fadeIn('fast', function () {
@@ -94,14 +90,6 @@ var Modal = (function () {
             }
         };
         close();
-    };
-
-    /**
-     * Testing defaults values
-     */
-    var testDefaults = function () {
-        text = text == null ? defaultText : text;
-        background = background == null ? defaultBackground : background;
     };
 
     return this;
