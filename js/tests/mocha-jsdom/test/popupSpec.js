@@ -22,6 +22,23 @@ describe('Modal capabilities', function () {
         modal.getText().should.be.equal(text)
     })
 
+    it('should set text and background', function () {
+        var text = 'text',
+            background = '#ddd';
+
+        var instance = modal.setText(text).setBackground(background);
+        instance.getText().should.be.equal(text);
+        instance.getBackground().should.be.equal(background);
+    })
+
+    it('should return defaults when nothing given', function() {
+        modal.getText().should.not.equal(null);
+        modal.getBackground().should.not.equal(null);
+
+        modal.getText().should.not.equal(undefined);
+        modal.getBackground().should.not.equal(undefined);
+    })
+
     it('should not get a private variables', function () {
         var text = 'text';
         modal.setText(text);
