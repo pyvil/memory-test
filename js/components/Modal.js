@@ -24,8 +24,17 @@ var Modal = (function () {
      *
      * @returns {*|string}
      */
-    var prepatePopup = function () {
+    this.prepatePopup = function () {
         return Helper.format(popupTemplate, this.getBackground(), this.getText());
+    };
+
+    /**
+     * Get popup not formatted template
+     *
+     * @returns {string}
+     */
+    this.getPopupTemplate = function () {
+        return popupTemplate;
     };
 
     /**
