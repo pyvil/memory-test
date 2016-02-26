@@ -22,4 +22,13 @@ describe('Helper.toInt tests', function(){
     it('should return 0 when string of symbols given', function () {
         helper.toInt('lorem ipsum dolor').should.equal(0)
     })
+
+    it('should format string with parameters passes next when {n} passed', function () {
+        var string1 = 'dolor',
+            string2 = 'mec',
+            text = 'Lorem ipsum {1} amet {2}',
+            formatted = 'Lorem ipsum dolor amet mec';
+
+        helper.format(text, string1, string2).should.be.equal(formatted)
+    })
 })
