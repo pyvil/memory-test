@@ -44,4 +44,12 @@ describe('Modal capabilities', function () {
         modal.setText(text);
         String(modal.text).should.be.equal('undefined');
     })
+
+    it('should return formatted popup template when nothing given instead', function () {
+        var defText = modal.getText(),
+            defBackground = modal.getBackground(),
+            defTemplate = modal.getPopupTemplate();
+
+        modal.prepatePopup().should.be.equal(Helper.format(defTemplate, defBackground, defText))
+    })
 })
