@@ -14,10 +14,19 @@ var Modal = (function () {
         defaultBackground  = '#7d77b7';
 
     var popupTemplate =
-        "<div class='popup' style='background: " + this.getBackground() + "; display: none;'>" +
-            "<span>" + this.getText() + "</span>" +
+        "<div class='popup' style='background: {1}; display: none;'>" +
+            "<span>{2}</span>" +
         "</div>" +
         "<div class='shadow' style='display: none;'></div>";
+
+    /**
+     * Prepare popup with formatting
+     *
+     * @returns {*|string}
+     */
+    var prepatePopup = function () {
+        return Helper.format(popupTemplate, this.getBackground(), this.getText());
+    };
 
     /**
      * Set modal text
