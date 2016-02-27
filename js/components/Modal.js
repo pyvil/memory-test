@@ -3,6 +3,7 @@
  *
  * @category Components
  * @package Components_Modal
+ *
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
  */
 var Modal = (function () {
@@ -13,19 +14,39 @@ var Modal = (function () {
         defaultText        = 'the best!',
         defaultBackground  = '#7d77b7';
 
-    var popupTemplate =
-        "<div class='popup' style='background: {1}; display: none;'>" +
-            "<span>{2}</span>" +
+    // generate random ids to prevent matches
+    var popupId             = Helper.getRandomString() + '_popup';
+    var shadowId            = Helper.getRandomString() + '_shadow';
+
+    // set classes for popup and shadow
+    var popupClass          = 'popup';
+    var shadowClass         = 'shadow';
+
+    // popup template
+    var popupTemplate       =
+        "<div class=':popup_class' id=':popup_id' style='background: :background; display: none;'>" +
+            "<span>:text</span>" +
         "</div>" +
-        "<div class='shadow' style='display: none;'></div>";
+        "<div class=':shadow_id' id=':shadow_id' style='display: none;'></div>";
+
+    // popup template replacements
+    var replacements        = {
+        ':popup_class'      : popupClass,
+        ':popup_id'         : popupId,
+        ':background'       : this.getBackground(),
+        ':text'             : this.getText(),
+
+        ':shadow_id'        : shadowId,
+        ':shadow_class'     : shadowClass
+    }
 
     /**
      * Prepare popup with formatting
      *
      * @returns {*|string}
      */
-    this.prepatePopup = function () {
-        return Helper.format(popupTemplate, this.getBackground(), this.getText());
+    this.preparePopup = function () {
+        return Helper.format(popupTemplate, replacements);
     };
 
     /**
@@ -72,14 +93,19 @@ var Modal = (function () {
     this.getBackground = function() {return background == null ? defaultBackground : background;};
 
     /**
+     * Get replacements object
+     *
+     * @returns {object}
+     */
+    this.getReplcements = function() {return replacements;};
+
+    /**
      * Add popup markup and show it
      *
      * @returns {Modal}
      */
     this.popup = function () {
-        $('body').append(
-            popupTemplate
-        );
+        $('body').append(this.preparePopup());
         Helper.centerObject('.popup');
         $('.shadow').fadeIn('fast', function () {
             $('.popup').delay(100).fadeIn('slow');

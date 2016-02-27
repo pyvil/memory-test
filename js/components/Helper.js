@@ -13,16 +13,16 @@ var Helper = {
      *
      * @returns {number}
      */
-    toInt : function (_var) {
+    toInt : function ( _var ) {
         if (_var === null || _var === undefined) return 0;
         var data = _var;
         var pattern = /\d+/g;
 
-        var match = data.match(pattern);
+        var match = data.match( pattern );
 
         if (!match) return 0;
         match = match.join('');
-        return parseInt(match, 10);
+        return parseInt( match, 10 );
     },
 
     /**
@@ -33,12 +33,8 @@ var Helper = {
      * @return void
      */
     centerObject : function(obj){
-        obj = this.toObj(obj, false);
-
-        if(obj == false) return null;
-
-        $(obj).css("top", Math.max(0, (($(window).height() - $(obj).outerHeight()) / 2)) + "px");
-        $(obj).css("left", Math.max(0, (($(window).width() - $(obj).outerWidth()) / 2)) + "px");
+        $(obj).css( "top", Math.max( 0, ( ($(window).height() - $(obj).outerHeight() ) / 2 ) ) + "px" );
+        $(obj).css( "left", Math.max( 0, ( ( $(window).width() - $(obj).outerWidth() )  / 2 ) ) + "px" );
     },
 
     /**
@@ -52,18 +48,48 @@ var Helper = {
     },
 
     /**
-     * Replace all {n} given in string with passing params one by one
+     * Replace all stuff like :stuff etc in string with given object (associative array)
+     * e.g. :
+     *          'Lorem :string1 dolor :string2', {':string1' : 'ipsum', ':string2' : 'amet'}
+     *          Will return this :
+     *          'Lorem ipsum dolor amet'
      *
+     * All stuff you want to replace must start with ':' and must be exist with some value
+     * in given object otherwise it will display the same way as in the string
+     *
+     * The source is here:
      * @see http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format/4673436#4673436
      *
-     * @param format
+     * @param {string} format string you want to format
+     * @param {object} args   object to replace with
+     *
      * @returns {string}
      */
-    format : function (format) {
-        var args = Array.prototype.slice.call(arguments, 1);
-        return format.replace(/{(\d+)}/g, function(match, number) {
-            return typeof args[number - 1] != 'undefined' ? args[number - 1] : match;
+    format : function ( format, args ) {
+        if( typeof args !== 'object' ) return format;
+        return format.replace(/:(\w+)/g, function( match ) {
+            return typeof args[ match ] != 'undefined' ? args[ match ] : match;
         });
+    },
+
+    /**
+     * Get random string
+     *
+     * @param {number} [n]  number from 1 and so on
+     * @returns {*|number}
+     */
+    getRandomString : function( n ) {
+        n = n || 10;
+        var string = "";
+        while(string.length < n && n > 0){
+            var r = Math.random();
+            string += (
+                        r < 0.1 ?
+                            Math.floor( r * 100 ) :
+                            String.fromCharCode( Math.floor(r  * 26 ) + ( r > .5 ? 97 : 65 ) )
+                      );
+        }
+        return string;
     }
 };
 
