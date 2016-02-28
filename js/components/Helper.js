@@ -28,13 +28,19 @@ var Helper = {
     /**
      * Put block in the center of the screen
      *
-     * @param obj
+     * @param {object} obj
+     * @param {string} [dir]
      *
      * @return void
      */
-    centerObject : function(obj){
-        $(obj).css( "top", Math.max( 0, ( ($(window).height() - $(obj).outerHeight() ) / 2 ) ) + "px" );
-        $(obj).css( "left", Math.max( 0, ( ( $(window).width() - $(obj).outerWidth() )  / 2 ) ) + "px" );
+    centerObject : function(obj, dir){
+        dir = dir || 'both';
+        if ( dir == 'both' || dir == 'left' ) {
+            $(obj).css( "left", Math.max( 0, ( ( $(window).width() - $(obj).outerWidth() )  / 2 ) ) + "px" );
+        }
+        if ( dir == 'both' || dir == 'right' ) {
+            $(obj).css( "top", Math.max( 0, ( ($(window).height() - $(obj).outerHeight() ) / 2 ) ) + "px" );
+        }
     },
 
     /**
@@ -50,7 +56,7 @@ var Helper = {
     /**
      * Replace all stuff like :stuff etc in string with given object (associative array)
      * e.g. :
-     *          'Lorem :string1 dolor :string2', {':string1' : 'ipsum', ':string2' : 'amet'}
+     *          <code>'Lorem :string1 dolor :string2', {':string1' : 'ipsum', ':string2' : 'amet'}</code>
      *          Will return this :
      *          'Lorem ipsum dolor amet'
      *
