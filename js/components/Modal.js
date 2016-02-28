@@ -33,12 +33,13 @@ var Modal = (function () {
     var replacements        = {
         ':popup_class'      : popupClass,
         ':popup_id'         : popupId,
+
         ':background'       : this.getBackground(),
         ':text'             : this.getText(),
 
         ':shadow_id'        : shadowId,
         ':shadow_class'     : shadowClass
-    }
+    };
 
     /**
      * Prepare popup with formatting
@@ -106,10 +107,11 @@ var Modal = (function () {
      */
     this.popup = function () {
         $('body').append(this.preparePopup());
-        Helper.centerObject('.popup');
-        $('.shadow').fadeIn('fast', function () {
-            $('.popup').delay(100).fadeIn('slow');
+        Helper.centerObject('#' + popupId);
+        $('#' + shadowId).fadeIn('fast', function () {
+            $('#' + popupId).delay(100).fadeIn('slow');
         });
+        return this;
     };
 
     /**
@@ -117,23 +119,41 @@ var Modal = (function () {
      *
      * @param time
      */
-    var closeAfter = function (time) {
+    var closeAfter = function ( time ) {
         var iterator = 0;
         var close = function () {
             if (iterator == (time / 1000)) {
-                $('.popup').fadeOut('slow', function () {
-                    $('.shadow').fadeOut('fast', function () {
-                        $('.popup').remove();
-                        $('.shadow').remove();
+                $('#' + popupId).fadeOut('slow', function () {
+                    $('#' + shadowId).fadeOut('fast', function () {
+                        $('#' + popupId).remove();
+                        $('#' + shadowId).remove();
                     });
                 });
             } else {
                 iterator++;
-                console.log(iterator);
                 setTimeout(close, 1000);
             }
         };
         close();
+    };
+
+    /**
+     * Add own configs like so:
+     * <code>
+     *       {
+     *         ':popup_id' : 'my-popup-id', // without leading #
+     *         ':popup_class' : 'my-popup-class' // without leading .
+     *        }
+     * </code>
+     * and so on (see README.md is /js/components)
+     *
+     * @param {object} config
+     *
+     * @returns {void|null}
+     */
+    this.setup = function (config) {
+        if ( typeof config !== 'object' ) return null;
+        $.extend( true, replacements, config );
     };
 
     return this;
