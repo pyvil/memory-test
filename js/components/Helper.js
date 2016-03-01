@@ -96,6 +96,27 @@ var Helper = {
                       );
         }
         return string;
+    },
+
+    /**
+     * Parse JSON file
+     *
+     * @param {string} file
+     * @returns {array}
+     */
+    parseJSON : function (file) {
+        var xmlhttp = new XMLHttpRequest();
+        var data = null;
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                data = JSON.parse(xmlhttp.responseText);
+            }
+        };
+
+        xmlhttp.open("GET", file, true);
+        xmlhttp.send();
+
+        return data;
     }
 };
 
