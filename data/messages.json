@@ -1,0 +1,30 @@
+[
+  {
+    "success" : {
+      "items" : [
+        "well done",
+        "this is your<br>moment",
+        "absolutely<br>correct",
+        "you got it<br>right",
+        "master!",
+        "you rock!",
+        "fantastic!",
+        "you're right!"
+      ],
+      "cool" : "you're on<br>target!<br>your memory<br>is perfect!"
+    },
+    "fail" : {
+      "items" : [
+        "better luck<br>next time",
+        "don't give up<br>and<br>chase your dream",
+        "cheer up!",
+        "don't give up<br>so soon<br>try again",
+        "try again,<br>baby!",
+        "free<br>your mind",
+        "stay cool,<br>do it again!",
+        "use<br>your mind!"
+      ],
+      "cool" : ""
+    }
+  }
+]
