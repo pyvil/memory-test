@@ -1,4 +1,11 @@
-
+/**
+ * Generate tests
+ *
+ * @category Components
+ * @package Components_Test
+ *
+ * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
+ */
 var Test = (function() {
     var appDefaults = {
         'volume'                    : 0.8,
@@ -59,18 +66,10 @@ var Test = (function() {
     };
 
     /**
-     * Setup test
+     * Initialize module
      *
-     * @param {object} config
-     *
-     * @returns this
+     * @returns init
      */
-    this.setup = function (config) {
-        if ( typeof config !== 'object' ) return null;
-        $.extend( true, appDefaults, config );
-    };
-
-
     var init = function () {
         var youShallNotPass = false;
         for(var item in appDefaults) {
@@ -90,7 +89,7 @@ var Test = (function() {
 
         if(youShallNotPass) {
             fatalError();
-            return null;
+            return false;
         }
 
         allImages                   = appDefaults.images;
@@ -100,10 +99,35 @@ var Test = (function() {
         levelContainerLink          = appDefaults.levelContainerClass;
         imageContainerLink          = appDefaults.imageContainerClass;
         rememberContainerLink       = appDefaults.rememberContainerClass;
+    };
 
-        return this;
-    }
+    /**
+     * Setup test
+     *
+     * @param {object} config
+     *
+     * @returns this
+     */
+    this.setup = function (config) {
+        if ( typeof config !== 'object' ) return null;
+
+        $.extend( true, appDefaults, config );
+        init();
+    };
 
 
-    return init();
-});
+
+    return this;
+})();
+
+if (typeof define === 'function' && define.amd) {
+    define('test', ['../tests/node_modules/jquery/dist/jquery', 'helper'], function() {
+        return Test;
+    })
+}
+
+if(typeof module != 'undefined') {
+    module.exports = Test;
+} else {
+    window.Test = Test;
+}
