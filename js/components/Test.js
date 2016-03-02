@@ -99,23 +99,80 @@ var Test = (function() {
         levelContainerLink          = appDefaults.levelContainerClass;
         imageContainerLink          = appDefaults.imageContainerClass;
         rememberContainerLink       = appDefaults.rememberContainerClass;
+
+        // makes an object of each image, added `path` and `id`
+        // in array usedImages - array of images links for using
+        allImages.forEach(function (item, index) {
+            usedImages.push({'id' : index, 'item' : item});
+        });
+
+        usedImages                  = Helper.shuffle(usedImages);
+        usedImages                  = usedImages.slice(0, 42);
     };
 
     /**
      * Setup test
      *
-     * @param {object} config
+     * @param {object} [config]
      *
      * @returns this
      */
     this.setup = function (config) {
+        config = config || {};
         if ( typeof config !== 'object' ) return null;
-
         $.extend( true, appDefaults, config );
         init();
     };
 
+    /**
+     * Get random value from array by index
+     * @param arr
+     * @returns {*}
+     */
+    this.getRandomText = function (arr) {
+        this.shuffle(arr);
+        var rand = Math.floor(Math.random() * (arr.length - 1));
+        return arr[rand];
+    };
 
+    /**
+     *
+     * @returns {number}
+     */
+    this.getLevel = function () {return level;};
+    /**
+     *
+     * @param _level
+     * @returns {this}
+     */
+    this.setLevel = function(_level) {level = _level; return this};
+
+    /**
+     *
+     */
+    var nextLevel = function () {
+        this.setLevel(level + 1 == levelsAmount + 1 ? 1 : level + 1);
+        startLevel();
+    };
+
+    /**
+     *
+     */
+    var prevLevel = function () {
+        this.setLevel( level - 1 == 0 ? levelsAmount : level - 1);
+        startLevel();
+    };
+
+    var getImagesToRemember = function () {
+        usedImages = Helper.shuffle(usedImages);
+        return usedImages.slice(0, level)
+    };
+
+    var startLevel = function () {
+        imagesToRemember = this.getLevel() * 2;
+        var listImagesToRemember = getImagesToRemember();
+
+    }
 
     return this;
 })();
