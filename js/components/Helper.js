@@ -104,15 +104,17 @@ var Helper = {
      * @returns {array}
      */
     parseJSON : function (file) {
+        var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
         var xmlHttp = new XMLHttpRequest();
         var data = null;
         xmlHttp.onreadystatechange = function() {
+            console.log(xmlHttp.responseText)
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                 data = JSON.parse(xmlHttp.responseText);
             }
         };
 
-        xmlHttp.open("GET", file, true);
+        xmlHttp.open("GET", 'file://' + file, true);
         xmlHttp.send();
 
         return data;
@@ -122,13 +124,14 @@ var Helper = {
      * @param arr
      */
     shuffle : function (arr) {
+        arr = arr.slice();
         for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
         return arr;
     }
 };
 
 if (typeof define === 'function' && define.amd) {
-    define('help', ['../tests/node_modules/jquery/dist/jquery'], function($) {
+    define('help', ['jquery', 'xmlhttprequest'], function($) {
         return Helper;
     })
 }
