@@ -97,7 +97,6 @@ var Helper = {
         }
         return string;
     },
-
     /**
      * Parse JSON file
      *
@@ -105,18 +104,26 @@ var Helper = {
      * @returns {array}
      */
     parseJSON : function (file) {
-        var xmlhttp = new XMLHttpRequest();
+        var xmlHttp = new XMLHttpRequest();
         var data = null;
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                data = JSON.parse(xmlhttp.responseText);
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                data = JSON.parse(xmlHttp.responseText);
             }
         };
 
-        xmlhttp.open("GET", file, true);
-        xmlhttp.send();
+        xmlHttp.open("GET", file, true);
+        xmlHttp.send();
 
         return data;
+    },
+    /**
+     * shuffle current image sequence
+     * @param arr
+     */
+    shuffle : function (arr) {
+        for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+        return arr;
     }
 };
 
