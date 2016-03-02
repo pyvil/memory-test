@@ -1,7 +1,7 @@
 var should = require('should')
 var helper = require('../../components/Helper')
 
-describe('Helper.toInt tests', function(){
+describe('Helper tests', function(){
     it('should have `number` type', function() {
         (typeof helper.toInt('123')).should.equal('number')
     })
@@ -23,12 +23,23 @@ describe('Helper.toInt tests', function(){
         helper.toInt('lorem ipsum dolor').should.equal(0)
     })
 
-    it('should format string with parameters passes next when {n} passed', function () {
-        var string1 = 'dolor',
-            string2 = 'mec',
-            text = 'Lorem ipsum {1} amet {2}',
+    it('should format string with parameters passes next when :string passed', function () {
+        var replacement = {':string1' : 'dolor', ':string2' : 'mec'},
+            text = 'Lorem ipsum :string1 amet :string2',
             formatted = 'Lorem ipsum dolor amet mec';
 
-        helper.format(text, string1, string2).should.be.equal(formatted)
+        helper.format(text, replacement).should.be.equal(formatted)
+    })
+
+    it('should shuffle array', function () {
+        var array = [1, 2, 3, 4, 5];
+        helper.shuffle(array).should.not.be.equal(array);
+    })
+
+    it('should parse JSON files', function () {
+        var file = 'data/data.json';
+        String(helper.parseJSON(file)).should.not.be.equal('null');
+        String(helper.parseJSON(file)).should.not.be.equal('undefined');
+        (typeof helper.parseJSON(file)).should.be.equal('array')
     })
 })
