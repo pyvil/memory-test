@@ -107,15 +107,17 @@ var Helper = {
         var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
         var xmlHttp = new XMLHttpRequest();
         var data = null;
-        xmlHttp.onreadystatechange = function() {
-            console.log(xmlHttp.responseText)
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+
+        xmlHttp.open('GET', 'file:' + file, false);
+        xmlHttp.send();
+
+        try{
+            if(xmlHttp.status == 200 && xmlHttp.readyState == 4) {
                 data = JSON.parse(xmlHttp.responseText);
             }
-        };
-
-        xmlHttp.open("GET", 'file://' + file, true);
-        xmlHttp.send();
+        }catch ( error ) {
+            console.log('error occur while processing: ' + error.message);
+        }
 
         return data;
     },
