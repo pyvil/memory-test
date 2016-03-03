@@ -34,8 +34,8 @@ var Modal = (function () {
         ':popup_class'      : popupClass,
         ':popup_id'         : popupId,
 
-        ':background'       : this.getBackground(),
-        ':text'             : this.getText(),
+        ':background'       : background,
+        ':text'             : text,
 
         ':shadow_id'        : shadowId,
         ':shadow_class'     : shadowClass
@@ -98,7 +98,7 @@ var Modal = (function () {
      *
      * @returns {object}
      */
-    this.getReplcements = function() {return replacements;};
+    this.getReplacements = function() {return replacements;};
 
     /**
      * Add popup markup and show it
@@ -152,8 +152,9 @@ var Modal = (function () {
      * @returns {void|null}
      */
     this.setup = function (config) {
+        config = config || {};
         if ( typeof config !== 'object' ) return null;
-        $.extend( true, replacements, config );
+        replacements = Helper.merge(replacements, config);
     };
 
     return this;

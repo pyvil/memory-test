@@ -1,0 +1,44 @@
+[
+  {
+    "messages" : {
+      "success" : {
+        "items" : [
+          "well done",
+          "this is your<br>moment",
+          "absolutely<br>correct",
+          "you got it<br>right",
+          "master!",
+          "you rock!",
+          "fantastic!",
+          "you're right!"
+        ],
+        "cool" : "you're on<br>target!<br>your memory<br>is perfect!"
+      },
+      "fail" : {
+        "items" : [
+          "better luck<br>next time",
+          "don't give up<br>and<br>chase your dream",
+          "cheer up!",
+          "don't give up<br>so soon<br>try again",
+          "try again,<br>baby!",
+          "free<br>your mind",
+          "stay cool,<br>do it again!",
+          "use<br>your mind!"
+        ],
+        "cool" : ""
+      }
+    },
+    "imagesSize" : {
+      "1" : "260x260",
+      "2" : "250x250",
+      "3" : "210x210",
+      "4" : "210x210",
+      "5" : "210x210",
+      "6" : "190x190",
+      "7" : "165x165",
+      "8" : "150x150",
+      "9" : "190x190",
+      "10" : "120x120"
+    }
+  }
+]

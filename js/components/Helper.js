@@ -129,6 +129,20 @@ var Helper = {
         arr = arr.slice();
         for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
         return arr;
+    },
+
+    /**
+     * Merge 2 objects
+     *
+     * @param {object} obj1
+     * @param {object} obj2
+     * @returns {object}
+     */
+    merge : function (obj1, obj2) {
+        for(var attr in obj2) {
+            obj1[attr] = obj2[attr];
+        }
+        return obj1;
     }
 };
 

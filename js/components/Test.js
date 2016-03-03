@@ -46,7 +46,13 @@ var Test = (function() {
         // array of images user have to find on current level
         rememberArray               = [],
         // current user position
-        currentLink                 = null;
+        currentLink                 = null,
+        // all messages from json data file
+        messages                    = null,
+        // all images size from json data file
+        imagesSize                  = null,
+        //
+        jsonData                    = Helper.parseJSON('/data/messages.json');
 
     /**
      * Display fatal error
@@ -100,6 +106,9 @@ var Test = (function() {
         imageContainerLink          = appDefaults.imageContainerClass;
         rememberContainerLink       = appDefaults.rememberContainerClass;
 
+        messages                    = jsonData.messages;
+        imagesSize                  = jsonData.imagesSize;
+
         // makes an object of each image, added `path` and `id`
         // in array usedImages - array of images links for using
         allImages.forEach(function (item, index) {
@@ -120,8 +129,25 @@ var Test = (function() {
     this.setup = function (config) {
         config = config || {};
         if ( typeof config !== 'object' ) return null;
-        $.extend( true, appDefaults, config );
+        appDefaults = Helper.merge(appDefaults, config);
         init();
+    };
+
+    /**
+     * Redirect to some block (means hide current and show given)
+     *
+     * @param link
+     */
+    var redirect = function (link) {
+        $(currentLink).hide('fast', function() {
+            $(url).show('fast', function () {
+                if ($(link).attr('id') == $(rememberContainerLink).parent().attr('id')) {
+                    Helper.centerObject($(url));
+                }
+                currentLink = $(url);
+            })
+        })
+
     };
 
     /**
@@ -151,6 +177,7 @@ var Test = (function() {
      *
      */
     var nextLevel = function () {
+        redirect($(rememberContainerLink).parent());
         this.setLevel(level + 1 == levelsAmount + 1 ? 1 : level + 1);
         startLevel();
     };
@@ -160,19 +187,44 @@ var Test = (function() {
      */
     var prevLevel = function () {
         this.setLevel( level - 1 == 0 ? levelsAmount : level - 1);
+        redirect($(rememberContainerLink).parent());
         startLevel();
     };
 
+    /**
+     * Get list of images user have to remember
+     *
+     * @returns {Array.<T>}
+     */
     var getImagesToRemember = function () {
         usedImages = Helper.shuffle(usedImages);
         return usedImages.slice(0, level)
     };
 
+    /**
+     * Start the level
+     * After user click on some level
+     *
+     * @return {void}
+     */
     var startLevel = function () {
+        // make container with images user have to remember empty
+        $(rememberContainerLink).html('');
         imagesToRemember = this.getLevel() * 2;
+        // clear array of images link
+        rememberArray = [];
         var listImagesToRemember = getImagesToRemember();
+        var size = imagesSize[ this.getLevel() ].split('x');
+        // add images user have to remember on current level
+        listImagesToRemember.forEach(function (item) {
+            $(rememberContainerLink).append(
+                "<img src = '" + item.item + "' data-id='" + item.id + "' style='width: " + size[0] + "px; height: " + size[1] + "px;' id = '" + id + "'>"
+            );
+            rememberArray.push(item.id);
+        });
+    };
 
-    }
+
 
     return this;
 })();
