@@ -40,6 +40,6 @@ describe('Helper tests', function(){
         var file = 'data/data.json';
         String(helper.parseJSON(file)).should.not.be.equal('null');
         String(helper.parseJSON(file)).should.not.be.equal('undefined');
-        (typeof helper.parseJSON(file)).should.be.equal('array')
+        (typeof helper.parseJSON(file)).should.be.equal('object')
     })
 })
