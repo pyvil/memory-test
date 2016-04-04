@@ -143,6 +143,23 @@ var Helper = {
             obj1[attr] = obj2[attr];
         }
         return obj1;
+    },
+
+    /**
+     * Display fatal error
+     *
+     * @return {void}
+     */
+    fatalError : function() {
+        $('body').append(
+            '<div style="background: rgba(255,255,255,0.7); position:fixed;left: 0; top: 0; width: 100%; height: 100%; z-index: 9999">' +
+            '<div style="position: fixed; width: 300px; padding: 10px; color: #444; font-size: 16px; top: 40%; left: 40%">' +
+            'Sorry but site in temporary unavailable...<br>' +
+            'We now working on the problem.<br>' +
+            'Try to <a href="javascript:location.reload()" style="color: #222;">refresh </a> this page.' +
+            '</div>' +
+            '</div>'
+        );
     }
 };
 
