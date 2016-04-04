@@ -16,6 +16,7 @@ var Test = (function() {
         'amountLevels'              : 10,
         'imagesToRemember'          : 2,
         'level'                     : 1,
+        'imagesToShow'              : 42,
 
         'levelContainerClass'       : '.mt-level-container',
         'imageContainerClass'       : '.mt-image-container',
@@ -27,54 +28,115 @@ var Test = (function() {
     };
 
     var
-        // all uploaded images
+        /**
+         * all uploaded images
+         *
+         * @type {Array}
+         */
         allImages                   = [],
-        // shuffle images which used to display to user
-        usedImages                  = [],
-        // current level
-        level                       = 1,
-        // current count images user have to remember
-        imagesToRemember            = 2,
-        // all levels which is available
-        levelsAmount                = 10,
-        // link on level list container
-        levelContainerLink          = null,
-        // container where displaying all images
-        imageContainerLink          = null,
-        // container where displaying items to remember
-        rememberContainerLink       = null,
-        // array of images user have to find on current level
-        rememberArray               = [],
-        // current user position
-        currentLink                 = null,
-        // all messages from json data file
-        messages                    = null,
-        // all images size from json data file
-        imagesSize                  = null,
-        //
-        jsonData                    = Helper.parseJSON('/data/messages.json');
 
-    /**
-     * Display fatal error
-     *
-     * @return {void}
-     */
-    var fatalError = function() {
-        $('body').append(
-            '<div style="background: rgba(255,255,255,0.7); position:fixed;left: 0; top: 0; width: 100%; height: 100%; z-index: 9999">' +
-                '<div style="position: fixed; width: 300px; padding: 10px; color: #444; font-size: 16px; top: 40%; left: 40%">' +
-                'Sorry but site in templrary unavailable...<br>' +
-                'We now working on the problem.<br>' +
-                'Try to <a href="javascript:location.reload()" style="color: #222;">refresh </a> this page.' +
-                '</div>' +
-            '</div>'
-        );
-    };
+        /**
+         * shuffle images which used to display to user
+         *
+         * @type {Array}
+         */
+        usedImages                  = [],
+
+        /**
+         * current level
+         *
+         * @type {number}
+         */
+        level                       = 0,
+
+        /**
+         * current count images user have to remember
+         *
+         * @type {number}
+         */
+        imagesToRemember            = 0,
+
+        /**
+         * all levels which is available
+         *
+         * @type {number}
+         */
+        levelsAmount                = 0,
+
+        /**
+         * Images to show
+         *
+         * @type {number}
+         */
+        imagesToShow                = 0,
+
+        // /**
+        //  * link on level list container
+        //  *
+        //  * @type {object}
+        //  */
+        // levelContainerLink          = null,
+        //
+        // /**
+        //  * container where displaying all images
+        //  *
+        //  * @type {object}
+        //  */
+        // imageContainerLink          = null,
+        //
+        // /**
+        //  * container where displaying items to remember
+        //  *
+        //  * @type {object}
+        //  */
+        // rememberContainerLink       = null,
+
+        /**
+         * array of images user have to find on current level
+         *
+         * @type {array}
+         */
+        rememberArray               = [],
+
+        /**
+         * current user position
+         * 
+         * @type {object}
+         */
+        currentLink                 = null,
+
+        /**
+         * all messages from json data file
+         *
+         * @type {string}
+         */
+        messages                    = null,
+
+        /**
+         * all images size from json data file
+         *
+         * @type {number}
+         */
+        imagesSize                  = 0,
+
+        // /**
+        //  * start btn
+        //  *
+        //  * @type {null}
+        //  */
+        // startButton                 = null,
+
+        /**
+         * JSON data with messages
+         *
+         * @type {*|array}
+         */
+        jsonData                    = Helper.parseJSON('/data/messages.json');
 
     /**
      * Initialize module
      *
-     * @returns init
+     * @returns {void|null}
      */
     var init = function () {
         var youShallNotPass = false;
@@ -94,17 +156,27 @@ var Test = (function() {
         }
 
         if(youShallNotPass) {
-            fatalError();
-            return false;
+            Helper.fatalError();
+            return null;
         }
 
+        initVariables();
+    };
+
+    /**
+     * Variables initialization
+     *
+     * @return void
+     */
+    var initVariables = function() {
         allImages                   = appDefaults.images;
         level                       = Helper.toInt(appDefaults.level);
         imagesToRemember            = Helper.toInt(appDefaults.imagesToRemember);
         levelsAmount                = Helper.toInt(appDefaults.amountLevels);
-        levelContainerLink          = appDefaults.levelContainerClass;
-        imageContainerLink          = appDefaults.imageContainerClass;
-        rememberContainerLink       = appDefaults.rememberContainerClass;
+        // levelContainerLink          = appDefaults.levelContainerClass;
+        // imageContainerLink          = appDefaults.imageContainerClass;
+        // rememberContainerLink       = appDefaults.rememberContainerClass;
+        // startButton                 = appDefaults.startButton;
 
         messages                    = jsonData.messages;
         imagesSize                  = jsonData.imagesSize;
@@ -136,6 +208,8 @@ var Test = (function() {
     /**
      * Redirect to some block (means hide current and show given)
      *
+     * TODO: do generic method
+     *
      * @param link
      */
     var redirect = function (link) {
@@ -152,8 +226,10 @@ var Test = (function() {
 
     /**
      * Get random value from array by index
-     * @param arr
-     * @returns {*}
+     *
+     * @param {array} arr
+     *
+     * @returns {array}
      */
     this.getRandomText = function (arr) {
         this.shuffle(arr);
@@ -162,32 +238,45 @@ var Test = (function() {
     };
 
     /**
+     * Get current level
      *
      * @returns {number}
      */
-    this.getLevel = function () {return level;};
-    /**
-     *
-     * @param _level
-     * @returns {this}
-     */
-    this.setLevel = function(_level) {level = _level; return this};
+    this.getLevel = function () {
+        return level;
+    };
 
     /**
+     * Set current level
      *
+     * @param {number} _level
+     *
+     * @returns {this}
+     */
+    this.setLevel = function(_level) {
+        level = _level;
+        return this
+    };
+
+    /**
+     * Set next level
+     *
+     *  @return void
      */
     var nextLevel = function () {
-        redirect($(rememberContainerLink).parent());
+        //redirect($(rememberContainerLink).parent());
         this.setLevel(level + 1 == levelsAmount + 1 ? 1 : level + 1);
         startLevel();
     };
 
     /**
+     * Set prev level
      *
+     * @return void
      */
     var prevLevel = function () {
         this.setLevel( level - 1 == 0 ? levelsAmount : level - 1);
-        redirect($(rememberContainerLink).parent());
+        //redirect($(rememberContainerLink).parent());
         startLevel();
     };
 
@@ -201,28 +290,56 @@ var Test = (function() {
         return usedImages.slice(0, level)
     };
 
-    /**
-     * Start the level
-     * After user click on some level
-     *
-     * @return {void}
-     */
-    var startLevel = function () {
-        // make container with images user have to remember empty
-        $(rememberContainerLink).html('');
-        imagesToRemember = this.getLevel() * 2;
-        // clear array of images link
-        rememberArray = [];
-        var listImagesToRemember = getImagesToRemember();
-        var size = imagesSize[ this.getLevel() ].split('x');
-        // add images user have to remember on current level
-        listImagesToRemember.forEach(function (item) {
-            $(rememberContainerLink).append(
-                "<img src = '" + item.item + "' data-id='" + item.id + "' style='width: " + size[0] + "px; height: " + size[1] + "px;' id = '" + id + "'>"
-            );
-            rememberArray.push(item.id);
-        });
-    };
+    // /**
+    //  * Clean click events e.g. start button, click on level
+    //  *
+    //  * @returns {void}
+    //  */
+    // var clearEvents = function() {
+    //     $(startButton).unbind();
+    //     $(levelContainerLink).undelegate('a', 'click');
+    //     $(imageContainerLink).undelegate('img', 'click');
+    // };
+
+    // this.getImagesList = function () {
+    //     $(imageContainerLink).html('');
+    //     usedImages = Helper.shuffle(usedImages);
+    //     usedImages.forEach(function (item) {
+    //         "<img src = '" + item.item + "' data-id='" + item.id + "'>"
+    //     });
+    //     var count = usedImages.length;
+    //     var showMessageTimer = null;
+    //     $(imageContainerLink).delegate('img','click')
+    // };
+
+    // /**
+    //  * Start the level
+    //  * After user click on some level
+    //  *
+    //  * @return {void}
+    //  */
+    // var startLevel = function () {
+    //     // make container with images user have to remember empty
+    //     $(rememberContainerLink).html('');
+    //     imagesToRemember = this.getLevel() * 2;
+    //     // clear array of images link
+    //     rememberArray = [];
+    //     var listImagesToRemember = getImagesToRemember();
+    //     var size = imagesSize[ this.getLevel() ].split('x');
+    //     // add images user have to remember on current level
+    //     listImagesToRemember.forEach(function (item) {
+    //         $(rememberContainerLink).append(
+    //             "<img src = '" + item.item + "' data-id='" + item.id + "' style='width: " + size[0] + "px; height: " + size[1] + "px;' id = '" + id + "'>"
+    //         );
+    //         rememberArray.push(item.id);
+    //     });
+    //     $(startButton).bind('click', function () {
+    //         clearEvents();
+    //         getImagesList();
+    //         sound('click');
+    //         redirect(imageContainerLink);
+    //     });
+    // };
 
 
 
