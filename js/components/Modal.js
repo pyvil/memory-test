@@ -5,21 +5,56 @@
  * @package Components_Modal
  *
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
+ *
+ * @copyright (c) Vitaliy Pyatin
  */
 var Modal = (function () {
     var
-        text               = null,
-        background         = null,
+        /**
+         * Text to be displaying in popup
+         *
+         * @type {string}
+         */
+        text               = '',
 
-        defaultText        = 'the best!',
-        defaultBackground  = '#7d77b7';
+        /**
+         * Popup background
+         *
+         * @type {string}
+         */
+        background         = '';
+
+        // defaultText        = 'the best!',
+        // defaultBackground  = '#7d77b7';
 
     // generate random ids to prevent matches
+    /**
+     * Popup unique id
+     *
+     * @type {string}
+     */
     var popupId             = Helper.getRandomString() + '_popup';
+
+    /**
+     * Shadow unique id
+     *
+     * @type {string}
+     */
     var shadowId            = Helper.getRandomString() + '_shadow';
 
     // set classes for popup and shadow
+    /**
+     * Popup class
+     *
+     * @type {string}
+     */
     var popupClass          = 'popup';
+
+    /**
+     * Shadow class
+     *
+     * @type {string}
+     */
     var shadowClass         = 'shadow';
 
     // popup template

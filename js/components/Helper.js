@@ -4,6 +4,7 @@
  * @category Components
  * @package  Components_Helper
  * @author Vitaliy Pyatin <mail.pyvil@gmail.com>
+ * @copyright (c) Vitaliy Pyatin
  */
 var Helper = {
     /**
@@ -72,7 +73,9 @@ var Helper = {
      * @returns {string}
      */
     format : function ( format, args ) {
-        if( typeof args !== 'object' ) return format;
+        if (typeof args !== 'object') {
+            return format;
+        }
         return format.replace(/:(\w+)/g, function( match ) {
             return typeof args[ match ] != 'undefined' ? args[ match ] : match;
         });
@@ -89,11 +92,9 @@ var Helper = {
         var string = "";
         while(string.length < n && n > 0){
             var r = Math.random();
-            string += (
-                        r < 0.1 ?
-                            Math.floor( r * 100 ) :
-                            String.fromCharCode( Math.floor(r  * 26 ) + ( r > .5 ? 97 : 65 ) )
-                      );
+            string += (r < 0.1
+                    ? Math.floor(r * 100)
+                    : String.fromCharCode(Math.floor(r * 26) + (r > .5 ? 97 : 65)));
         }
         return string;
     },
@@ -101,6 +102,7 @@ var Helper = {
      * Parse JSON file
      *
      * @param {string} file
+     *
      * @returns {array}
      */
     parseJSON : function (file) {
@@ -111,8 +113,8 @@ var Helper = {
         xmlHttp.open('GET', 'file:' + file, false);
         xmlHttp.send();
 
-        try{
-            if(xmlHttp.status == 200 && xmlHttp.readyState == 4) {
+        try {
+            if (xmlHttp.status == 200 && xmlHttp.readyState == 4) {
                 data = JSON.parse(xmlHttp.responseText);
             }
         }catch ( error ) {
@@ -123,7 +125,10 @@ var Helper = {
     },
     /**
      * shuffle current image sequence
-     * @param arr
+     *
+     * @param {array} arr array need to be shuffled
+     *
+     * @return {array}
      */
     shuffle : function (arr) {
         arr = arr.slice();
@@ -132,10 +137,11 @@ var Helper = {
     },
 
     /**
-     * Merge 2 objects
+     * Merge 2 objects, merging obj2 into obj1
      *
      * @param {object} obj1
      * @param {object} obj2
+     *
      * @returns {object}
      */
     merge : function (obj1, obj2) {
@@ -163,6 +169,7 @@ var Helper = {
     }
 };
 
+// requirejs stuff
 if (typeof define === 'function' && define.amd) {
     define('help', ['jquery', 'xmlhttprequest'], function($) {
         return Helper;
