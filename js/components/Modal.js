@@ -9,24 +9,15 @@
  * @copyright (c) Vitaliy Pyatin
  */
 var Modal = (function () {
-    var
-        /**
-         * Text to be displaying in popup
-         *
-         * @type {string}
-         */
-        text               = '',
+    // defaultText        = 'the best!',
+    // defaultBackground  = '#7d77b7';
 
-        /**
-         * Popup background
-         *
-         * @type {string}
-         */
-        background         = '';
-
-        // defaultText        = 'the best!',
-        // defaultBackground  = '#7d77b7';
-
+    /**
+     * Popup content
+     *
+     * @type {string}
+     */
+    var content             = '<span>The best!</span>';
     // generate random ids to prevent matches
     /**
      * Popup unique id
@@ -59,8 +50,8 @@ var Modal = (function () {
 
     // popup template
     var popupTemplate       =
-        "<div class=':popup_class' id=':popup_id' style='background: :background; display: none;'>" +
-            "<span>:text</span>" +
+        "<div class=':popup_class' id=':popup_id'" +
+            ":content" +
         "</div>" +
         "<div class=':shadow_id' id=':shadow_id' style='display: none;'></div>";
 
@@ -69,8 +60,7 @@ var Modal = (function () {
         ':popup_class'      : popupClass,
         ':popup_id'         : popupId,
 
-        ':background'       : background,
-        ':text'             : text,
+        ':content'          : content,
 
         ':shadow_id'        : shadowId,
         ':shadow_class'     : shadowClass
@@ -95,38 +85,14 @@ var Modal = (function () {
     };
 
     /**
-     * Set modal text
+     * Set content
      *
-     * @param _text
+     * @param value
      */
-    this.setText = function (_text) {
-        text = _text;
+    this.setText = function (value) {
+        content = value;
         return this;
     };
-
-    /**
-     * Set background of popup
-     *
-     * @param color
-     */
-    this.setBackground = function(color) {
-        background = color;
-        return this;
-    };
-
-    /**
-     * Get text value
-     *
-     * @returns {string}
-     */
-    this.getText = function() {return text == null ? defaultText : text;};
-
-    /**
-     * Get background value
-     *
-     * @returns {string}
-     */
-    this.getBackground = function() {return background == null ? defaultBackground : background;};
 
     /**
      * Get replacements object
